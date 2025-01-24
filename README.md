@@ -31,9 +31,9 @@
 
 ## FrontEnd Developer
 
-|                     Sunwoo An                      |
-| :------------------------------------------------: |
-| <img width="240px" src="//public/img/me/me.jpg" /> |
-|     [@sunja-An](https://github.com/sunja1472)      |
-|                 Birth - 2001.12.24                 |
-|          National - 🇰🇷 Republic Of Korea           |
+|                   Sunwoo An                   |
+| :-------------------------------------------: |
+| <img width="240px" src="public/img/me.jpg" /> |
+|   [@sunja-An](https://github.com/sunja1472)   |
+|              Birth - 2001.12.24               |
+|        National - 🇰🇷 Republic Of Korea        |

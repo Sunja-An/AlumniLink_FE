@@ -1,10 +1,6 @@
-import { MainComponent } from "@/views/main";
+import MainView from "@/views/main/MainView";
 import React from "react";
 
-export default function AlumiLink_Main_Page() {
-  return (
-    <main className="w-full h-screen flex flex-col justify-start items-start">
-      <MainComponent />
-    </main>
-  );
+export default function AlumniLink_MainPage() {
+  return <MainView />;
 }
