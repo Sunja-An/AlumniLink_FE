@@ -21,10 +21,10 @@ AlumniLinkAPI.defaults.headers = {
 } as headers & HeadersDefaults;
 
 let refreshFlag = false;
-let failedQueue: any[] = [];
+const failedQueue = [];
 
 AlumniLinkAPI.interceptors.request.use(
-  (config: any) => {
+  (config) => {
     const token = Cookies.get("access-token") ?? null;
     const BearerToken = "Bearer " + token;
     if (token && config.headers) {
@@ -32,7 +32,7 @@ AlumniLinkAPI.interceptors.request.use(
     }
     return config;
   },
-  (error: any) => {
+  (error) => {
     return Promise.reject(error);
   }
 );
