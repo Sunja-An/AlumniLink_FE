@@ -12,6 +12,25 @@ import Instagram from "/public/sns/insta.svg";
 import Logo from "/public/logo/logo.png";
 import LogoNoBackground from "/public/logo/LogoNoBg.png";
 
+export const HEADER_CONTENT = [
+  {
+    id: 1,
+    content: "정보 찾기",
+  },
+  {
+    id: 2,
+    content: "프로젝트 찾기",
+  },
+  {
+    id: 3,
+    content: "마이 페이지",
+  },
+  {
+    id: 4,
+    content: "설정",
+  },
+];
+
 export const ICON_ALUMNIFLAG = AlumniFlag;
 export const ICON_GRADUATE = Graduate;
 export const ICON_MY = My;
