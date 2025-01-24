@@ -5,7 +5,7 @@
   "contributors": [
     {
       "name": "sunwooAn",
-      "email": "sunjajp1472@gmail.com",
+      "email": "sunja1472@gmail.com",
       "url": "https://www.github.com/sunja1472"
     }
   ],
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@rive-app/react-canvas": "^4.17.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

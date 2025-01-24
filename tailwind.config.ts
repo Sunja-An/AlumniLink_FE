@@ -11,6 +11,7 @@ export default {
     extend: {
       fontFamily: {
         studioSans: ["studioSans"],
+        pretendard: ["pretendard"],
       },
       colors: {
         background: "var(--background)",

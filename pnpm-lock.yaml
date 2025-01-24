@@ -54,6 +54,9 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.2.0
+      '@rive-app/react-canvas':
+        specifier: ^4.17.7
+        version: 4.17.7(react@19.0.0)
       '@types/node':
         specifier: ^20
         version: 20.17.10
@@ -408,6 +411,14 @@ packages:
 
   '@remirror/core-constants@3.0.0':
     resolution: {integrity: sha512-42aWfPrimMfDKDi4YegyS7x+/0tlzaqwPQCULLanv3DMIlu96KTJR0fM5isWX2UViOqlGnX6YFgqWepcX+XMNg==}
+
+  '@rive-app/canvas@2.25.5':
+    resolution: {integrity: sha512-Y2/h2M1KUH2AT4a0sL4bFG3aTqvZROiYw05sby3fmPwFnmXr09iLkFSj96OMhR8l8n+egGzDZfcZTiCOGnOy5g==}
+
+  '@rive-app/react-canvas@4.17.7':
+    resolution: {integrity: sha512-wJZidX6POlLozrgd4lBC+G2FrHh2pEqUP5No4lByUtwVw0guxe6narATd/MOJihVEOuhXDUxEzUEatZ0wZKoIQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -3076,6 +3087,13 @@ snapshots:
   '@popperjs/core@2.11.8': {}
 
   '@remirror/core-constants@3.0.0': {}
+
+  '@rive-app/canvas@2.25.5': {}
+
+  '@rive-app/react-canvas@4.17.7(react@19.0.0)':
+    dependencies:
+      '@rive-app/canvas': 2.25.5
+      react: 19.0.0
 
   '@rtsao/scc@1.1.0': {}
 
