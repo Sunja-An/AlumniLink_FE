@@ -13,6 +13,10 @@ export default {
         studioSans: ["studioSans"],
         pretendard: ["pretendard"],
       },
+      backgroundColor: {
+        softblack: "#1C1C1C",
+        softwhite: "#F0F0F0",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
