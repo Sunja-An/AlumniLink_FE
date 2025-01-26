@@ -4,6 +4,11 @@ export type T_User = {
   email: string;
 };
 
+export type T_Login = {
+  email: string;
+  password: string;
+};
+
 export type T_SignUp = {
   email: string;
   nickname: string;
