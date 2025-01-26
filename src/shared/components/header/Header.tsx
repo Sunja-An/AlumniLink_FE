@@ -1,44 +1,114 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { get_my_info } from "@/shared/utils/get_info";
 import { HEADER_CONTENT } from "@/shared/constants";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import Cookie from "js-cookie";
+import { JwtPayload } from "jwt-decode";
 
 function Header() {
-  const userInfo = get_my_info();
+  const router = useRouter();
+
+  const [userInfo, setUserInfo] = useState<JwtPayload | false>(false);
 
   const [idx, setIdx] = useState<number>(1);
 
+  const onClickRouting = (url: string) => {
+    router.push(`/${url}`);
+  };
+
+  const onClickItem = (id: number, url: string) => {
+    if (id === 4) {
+      Logout();
+    } else {
+      setIdx(id);
+      router.push(`/${url}`);
+    }
+  };
+
+  const Logout = () => {
+    Cookie.remove("access-token");
+    Cookie.remove("refresh-token");
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    const user = get_my_info();
+
+    if (user) {
+      setUserInfo(user);
+    }
+  }, []);
+
   return (
-    <header className="px-6 py-20 w-full h-full flex flex-col justify-start items-center bg-transparent gap-14">
+    <header className="px-6 py-20 w-full h-full flex flex-col justify-start items-center bg-transparent gap-14 duration-300">
       <div className="w-full flex flex-col justify-center items-center gap-4">
-        <div className="w-24 h-24 rounded-full bg-black" />
-        <div className="w-full flex flex-col justify-center items-center gap-2">
-          <span className="font-pretendard font-bold text-lg text-black">
-            {userInfo.username}
-          </span>
-          <span className="font-pretendard font-light text-sm text-gray-400">
-            {userInfo.email}
-          </span>
-        </div>
+        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#ee9ca7] to-[#ffdde1] shadow-md" />
+        {userInfo ? (
+          <div className="w-full flex flex-col justify-center items-center gap-2">
+            <span className="font-pretendard font-bold text-lg text-black">
+              {userInfo.username === "" ? userInfo.username : "Waiting..."}
+            </span>
+            <span className="font-pretendard font-light text-sm text-gray-400">
+              {userInfo.email === "" ? userInfo.email : "..."}
+            </span>
+          </div>
+        ) : (
+          <div className="px-10 w-full flex flex-col justify-center items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onClickRouting("login")}
+              className="w-full h-12 font-pretendard font-semibold text-lg text-black rounded-2xl bg-slate-50"
+            >
+              로그인하기
+            </button>
+            <button
+              type="button"
+              onClick={() => onClickRouting("signup")}
+              className="w-full h-12 font-pretendard font-semibold text-lg text-white rounded-2xl bg-softblack"
+            >
+              회원가입하기
+            </button>
+          </div>
+        )}
       </div>
       <nav className="w-full flex flex-col justify-center items-center">
         <ul className="px-10 w-full flex flex-col justify-start items-center gap-4">
           {HEADER_CONTENT.map((item, key: number) => {
-            return (
-              <li
-                className={`w-full py-4 text-center font-pretendard font-bold text-lg text-black rounded-2xl duration-300 ${
-                  idx === item.id
-                    ? "bg-[#003366] text-white"
-                    : "hover:bg-gray-50 "
-                }`}
-                onClick={() => setIdx(item.id)}
-                key={key}
-              >
-                {item.content}
-              </li>
-            );
+            if (item.isLoginNeed === true) {
+              if (userInfo !== false) {
+                return (
+                  <li
+                    className={`w-full py-4 text-center font-pretendard font-bold text-lg text-black rounded-2xl duration-300 ${
+                      idx === item.id
+                        ? "bg-[#003366] text-white"
+                        : "hover:bg-gray-50 "
+                    }`}
+                    onClick={() => onClickItem(item.id, item.url)}
+                    key={key}
+                  >
+                    {item.content}
+                  </li>
+                );
+              }
+            } else {
+              return (
+                <li
+                  className={`w-full py-4 text-center font-pretendard font-bold text-lg text-black rounded-2xl duration-300 ${
+                    idx === item.id
+                      ? "bg-[#003366] text-white"
+                      : "hover:bg-gray-50 "
+                  }`}
+                  onClick={() => onClickItem(item.id, item.url)}
+                  key={key}
+                >
+                  {item.content}
+                </li>
+              );
+            }
           })}
         </ul>
       </nav>
