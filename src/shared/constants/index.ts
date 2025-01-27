@@ -7,6 +7,9 @@ import Search from "/public/svg/SearchIcon.svg";
 import SignOut from "/public/svg/signout.svg";
 import Image from "/public/svg/image.svg";
 import Docs from "/public/svg/docs.svg";
+import Information from "/public/svg/Information.svg";
+import Resume from "/public/svg/resume.svg";
+import Rocket from "/public/svg/Rocket.svg";
 
 import Github from "/public/sns/GithubMark.svg";
 import Instagram from "/public/sns/insta.svg";
@@ -50,6 +53,9 @@ export const ICON_SEARCH = Search;
 export const ICON_SIGNOUT = SignOut;
 export const ICON_IMAGE = Image;
 export const ICON_DOCS = Docs;
+export const ICON_INFORMATION = Information;
+export const ICON_PROJECT = Rocket;
+export const ICON_RESUME = Resume;
 
 export const ICON_GITHUB = Github;
 export const ICON_INSTAGRAM = Instagram;
