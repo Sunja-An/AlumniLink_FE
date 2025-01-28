@@ -7,9 +7,8 @@ const get_info_list = async (page: number, size: number) => {
   try {
     const url = makeQueryString("posts", page, size);
     const res = await AlumniLinkAPI.get(url);
-    console.log(res.data.content);
     return res.data;
-  } catch (err: any) {
+  } catch (err) {
     return false;
   }
 };

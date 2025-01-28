@@ -7,7 +7,7 @@ export const getMyPosts = async () => {
     const url = makeQueryString("posts/my", 0, 0);
     const res = await AlumniLinkAPI.get(url);
     return res.data.content as T_SinglePost[];
-  } catch (err: any) {
+  } catch (err) {
     return false;
   }
 };

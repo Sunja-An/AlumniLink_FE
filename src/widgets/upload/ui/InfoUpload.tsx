@@ -10,7 +10,7 @@ import React, {
 
 import { ICON_IMAGE, ICON_DOCS } from "@/shared/constants";
 import { post_my_info } from "@/widgets/upload/api/upload.action";
-import { T_Post } from "@/entity/info/post";
+import { T_Post, TAG } from "@/entity/info/post";
 import { T_Loading } from "@/shared/types/load";
 import { isPostKey } from "@/shared";
 
@@ -46,39 +46,44 @@ function InfoUpload() {
     }
   };
 
-  const onSubmitPost = (e: any) => {
+  const onSubmitPost = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
       setIsSetup(true);
     }
   };
 
-  const submitLogic = async (e: any) => {
+  const submitLogic = async (e: KeyboardEvent) => {
     e.preventDefault();
     setLoading(1);
     if (postInfo.title === "" || postInfo.body === "") {
       setLoading(-1);
+      setErrMsg("제목 및 내용을 작성해주세요!");
       setTimeout(() => {
         setLoading(0);
       }, 2000);
     } else {
       setLoading(2);
-      const res = post_my_info(postInfo).then((data) => {
-        setPostInfo({
-          title: "",
-          body: "",
-          description: "",
-          tag: "TIP",
+      post_my_info(postInfo)
+        .then((data) => {
+          setPostInfo({
+            title: "",
+            body: "",
+            description: "",
+            tag: "TIP",
+          });
+          setLoading(0);
+        })
+        .catch((err) => {
+          setErrMsg(err);
         });
-        setLoading(0);
-      });
     }
   };
 
   return (
     <div className="relative px-10 py-5 w-full flex justify-start items-start rounded-2xl bg-[#FAFAFA] gap-2 shadow-lg">
       <div className="w-20 rounded-full flex justify-center items-start">
-        <div className="w-14 h-14 rounded-full bg-black" />
+        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#ee9ca7] to-[#ffdde1]" />
       </div>
       <div className="px-5 w-full flex flex-col justify-start items-start gap-4">
         <input
@@ -88,7 +93,6 @@ function InfoUpload() {
           name="title"
           required
           onChange={onChangeTtitle}
-          onKeyDown={onSubmitPost}
         />
         <textarea
           placeholder="내용을 입력해주세요"
@@ -96,7 +100,6 @@ function InfoUpload() {
           name="body"
           required
           onChange={onChangeText}
-          onKeyDown={onSubmitPost}
         />
         <div className="w-full flex justify-start items-center gap-8">
           <div className="w-fit flex justify-start items-center gap-4 cursor-pointer">
@@ -115,7 +118,8 @@ function InfoUpload() {
         <UploadOptionBar
           onSubmit={submitLogic}
           onStateChange={setIsSetup}
-          onTagChange={onChangeTtitle}
+          target={postInfo}
+          onTagChange={setPostInfo}
         />
       </div>
     </div>
@@ -124,42 +128,73 @@ function InfoUpload() {
 
 export { InfoUpload };
 
-const variants = {
-  initial: "initial",
-  enter: "enter",
-  exit: "exit",
-};
+import {
+  ICON_PROJECT,
+  ICON_RESUME,
+  ICON_INFORMATION,
+} from "@/shared/constants";
 
 type UploadOptionBarType = {
   onStateChange: Dispatch<SetStateAction<boolean>>;
-  onSubmit: (e: any) => Promise<void>;
-  onTagChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: KeyboardEvent) => Promise<void>;
+  target: T_Post;
+  onTagChange: Dispatch<SetStateAction<T_Post>>;
+};
+
+type TAGLIST = {
+  name: TAG;
+  image: string;
 };
 
 function UploadOptionBar({
   onStateChange,
   onSubmit,
+  target,
   onTagChange,
 }: UploadOptionBarType) {
-  const onSubmitPost = (e: any) => {
+  const onSubmitPost = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      onSubmit(true);
+      onStateChange(true);
+      onSubmit(e);
     }
   };
+
+  const onClickTag = (value: TAG) => {
+    onTagChange({
+      ...target,
+      ["tag"]: value,
+    });
+  };
+
+  const tagList: TAGLIST[] = [
+    { name: "TIP", image: ICON_INFORMATION },
+    { name: "PROJECT", image: ICON_PROJECT },
+    { name: "RESUME", image: ICON_RESUME },
+  ];
+
   return (
     <div className="py-2 w-full h-fit flex justify-between items-center gap-4">
-      <div className="min-w-60 w-2/3 h-12 flex justify-center items-center">
-        <input
-          type="text"
-          name="tag"
-          maxLength={10}
-          minLength={3}
-          placeholder="3~10자까지의 Tag만 허용합니다."
-          className="px-4 py-2 w-full h-8 font-pretendard text-sm rounded-md"
-          onChange={onTagChange}
-          required
-        />
+      <div className="min-w-60 w-2/3 h-12 flex justify-start items-center gap-8">
+        {tagList.map((item, key) => {
+          return (
+            <div
+              className="px-3 py-1 min-w-24 w-fit min-h-12 h-12 flex justify-center items-center gap-4 cursor-pointer rounded-full hover:border border-black"
+              onClick={() => onClickTag(item.name)}
+              key={key}
+            >
+              <Image
+                src={item.image}
+                alt={`icon-${key}`}
+                width={15}
+                height={15}
+              />
+              <span className="font-pretendard font-semibold text-sm text-black">
+                {item.name}
+              </span>
+            </div>
+          );
+        })}
       </div>
       <div className="button-layer w-fit flex justify-center items-center gap-4">
         <button

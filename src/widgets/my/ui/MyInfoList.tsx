@@ -10,11 +10,10 @@ function MyInfoList() {
   useEffect(() => {
     getMyPosts()
       .then((data) => {
-        console.log(data);
         setData(data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
   return (

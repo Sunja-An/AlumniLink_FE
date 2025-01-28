@@ -5,7 +5,6 @@ import { AxiosError } from "axios";
 export const post_my_info = async (request: T_Post) => {
   try {
     const res = await AlumniLinkAPI.post("/posts", request);
-    console.log(res);
     return res.data;
   } catch (err: unknown) {
     if (err instanceof AxiosError) {
