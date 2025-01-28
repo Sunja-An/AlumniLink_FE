@@ -1,6 +1,14 @@
 import Cookies from "js-cookie";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
+export type UserPayload = {
+  email: string;
+  exp: number;
+  iat: number;
+  nickname: string;
+  type: string;
+};
+
 const get_my_info = () => {
   const token = Cookies.get("access-token");
 
@@ -18,7 +26,7 @@ const get_my_info = () => {
   else {
     const decodedUser = jwtDecode(token);
     if (isValidToken(decodedUser)) {
-      return decodedUser;
+      return decodedUser as UserPayload;
     } else {
       return false;
     }
