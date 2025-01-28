@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { T_Login } from "@/entity/user/user";
 import { SignIn } from "@/views/sign/api/sign.action";
 import { isSignInKey } from "@/shared";
@@ -15,8 +15,6 @@ export default function LoginView() {
 
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value);
-    console.log(isSignInKey(name));
     if (isSignInKey(name)) {
       setLoginInfo({
         ...loginInfo,
@@ -25,15 +23,14 @@ export default function LoginView() {
     }
   };
 
-  const onSubmitPost = (e: any) => {
+  const onSubmitPost = (e: KeyboardEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (e.key === "Enter") {
-      e.preventDefault();
-      submitLogic(e);
+      submitLogic();
     }
   };
 
-  const submitLogic = async (e: any) => {
-    e.preventDefault();
+  const submitLogic = async () => {
     const res = await SignIn(loginInfo);
     if (res) {
       router.push("/info?page=0&size=0");
@@ -52,7 +49,7 @@ export default function LoginView() {
       <div className="w-full flex flex-col justify-center items-center">
         <form
           className="py-10 w-full flex flex-col justify-center items-center gap-4"
-          onSubmit={submitLogic}
+          onSubmit={onSubmitPost}
         >
           <input
             type="text"
@@ -73,7 +70,7 @@ export default function LoginView() {
           <button
             type="submit"
             className="px-4 py-2 w-1/2 h-12 rounded-full font-pretendard text-sm text-black bg-slate-100"
-            onKeyDown={onSubmitPost}
+            onClick={submitLogic}
           >
             로그인하기
           </button>

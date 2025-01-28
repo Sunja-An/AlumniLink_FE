@@ -12,7 +12,7 @@ export default function MyView() {
     if (userInfo === false) {
       router.push("/login");
     }
-  }, [userInfo]);
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col justify-start items-start gap-8">

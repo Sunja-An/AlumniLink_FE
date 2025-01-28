@@ -1,7 +1,7 @@
 "use client";
 
 import { T_SignUp } from "@/entity/user/user";
-import React, { type ChangeEvent, useState } from "react";
+import React, { type ChangeEvent, KeyboardEvent, useState } from "react";
 import { SignUp } from "@/views/sign/api/sign.action";
 import { isSignUpKey } from "@/shared";
 import { useRouter } from "next/navigation";
@@ -28,18 +28,18 @@ export default function SignUpView() {
     }
   };
 
-  const onSubmitLogin = (e: any) => {
+  const onSubmitLogin = (e: KeyboardEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (e.key === "Enter") {
-      e.preventDefault();
-      submitLogic(e);
+      submitLogic();
     }
   };
 
-  const submitLogic = async (e: any) => {
-    e.preventDefault();
+  const submitLogic = async () => {
     const res = await SignUp(signUpInfo);
     if (res) {
-      router.push("/login");
+      router.push("/info?page=0&size=10");
     } else {
       alert("에러가 발생하였습니다.");
     }
@@ -55,7 +55,7 @@ export default function SignUpView() {
       <div className="w-full flex flex-col justify-center items-center">
         <form
           className="py-10 w-full flex flex-col justify-center items-center gap-4"
-          onSubmit={submitLogic}
+          onSubmit={onSubmitLogin}
         >
           <input
             type="text"
@@ -98,12 +98,12 @@ export default function SignUpView() {
           <button
             type="submit"
             className="px-4 py-2 w-1/2 h-12 rounded-full font-pretendard text-sm text-white bg-softblack"
-            onKeyDown={onSubmitLogin}
+            onClick={submitLogic}
           >
             회원가입하기
           </button>
           <button
-            type="submit"
+            type="button"
             className="px-4 py-2 w-1/2 h-12 rounded-full font-pretendard text-sm text-black bg-slate-100"
           >
             CLEAR

@@ -18,23 +18,28 @@ export type T_SinglePost = {
 
 export type TAG = "TIP" | "PROJECT" | "RESUME";
 
-type ServerPosts = {
-  content: [[Object]];
-  pageable: {
-    pageNumber: number;
-    pageSize: number;
-    sort: [Object];
-    offset: number;
-    paged: boolean;
-    unpaged: boolean;
-  };
-  totalPages: number;
-  totalElements: number;
-  last: boolean;
-  size: number;
-  number: number;
-  sort: { empty: true; sorted: false; unsorted: true };
-  numberOfElements: number;
-  first: boolean;
+export type ServerPostPagingObject = {
+  content: T_SinglePost[];
   empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number; // 총 Post 개수
+  pageable: {
+    offset: number;
+    pageNumber: number; // 몇 페이지인지
+    pageSize: number; // 1 page 에 몇개씩 나타내지는지
+    paged: boolean; // 페이징 되었는지 Check
+    sort: ServerSortType[];
+  };
+  size: number; // 1 page 에 몇개씩 나타내지는지
+  sort: ServerSortType;
+  totalElements: number; // 총 Post 개수
+  totalPages: number; // element 와 size 로 인해, 몇 페이지가 총 나오는지 Check
+};
+
+export type ServerSortType = {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
 };
