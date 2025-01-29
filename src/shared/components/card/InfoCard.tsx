@@ -44,7 +44,7 @@ function InfoCard({ content, className }: T_InfoCard) {
       </div>
       <div className="w-full flex justify-start items-center">
         <span className="font-pretendard font-bold text-xl text-black">
-          {content.title}
+          {content.body}
         </span>
       </div>
     </div>

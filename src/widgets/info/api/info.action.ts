@@ -9,6 +9,7 @@ const get_info_list = async (page: number, size: number) => {
     const res = await AlumniLinkAPI.get(url);
     return res.data;
   } catch (err) {
+    console.error(err);
     return false;
   }
 };
