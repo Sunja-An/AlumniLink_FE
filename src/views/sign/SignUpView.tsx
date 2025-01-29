@@ -5,6 +5,8 @@ import React, { type ChangeEvent, KeyboardEvent, useState } from "react";
 import { SignUp } from "@/views/sign/api/sign.action";
 import { isSignUpKey } from "@/shared";
 import { useRouter } from "next/navigation";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 export default function SignUpView() {
   const router = useRouter();
@@ -45,16 +47,27 @@ export default function SignUpView() {
     }
   };
 
+  useGSAP(() => {
+    const tl = gsap.timeline();
+    tl.from(".signUp-block", {
+      opacity: 0,
+      y: 200,
+      stagger: 0.2,
+      duration: 1,
+      ease: "power4.inOut",
+    });
+  }, []);
+
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center gap-8">
-      <div className="w-full flex justify-center items-center">
+    <div className="py-10 w-full h-full flex flex-col justify-center items-center gap-8">
+      <div className="signUp-block w-full flex justify-center items-center">
         <span className="font-pretendard font-black text-4xl text-black uppercase">
           회원가입
         </span>
       </div>
       <div className="w-full flex flex-col justify-center items-center">
         <form
-          className="py-10 w-full flex flex-col justify-center items-center gap-4"
+          className="signUp-block py-10 w-full flex flex-col justify-center items-center gap-4"
           onSubmit={onSubmitLogin}
         >
           <input

@@ -8,6 +8,7 @@ export const getMyPosts = async () => {
     const res = await AlumniLinkAPI.get(url);
     return res.data.content as T_SinglePost[];
   } catch (err) {
+    console.error(err);
     return false;
   }
 };

@@ -18,13 +18,12 @@ export default function MyView() {
     <div className="w-full h-full flex flex-col justify-start items-start gap-8">
       <div className="w-full flex flex-col justify-center items-center gap-8">
         <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#ee9ca7] to-[#ffdde1] shadow-md" />
-        {/* <span className="">{userInfo.username ?? "Error"}</span> */}
         <div className="w-full flex flex-col justify-start items-center gap-4">
           <span className="font-pretendard font-bold text-2xl text-black">
-            닉네임입니다.
+            {userInfo ? userInfo.nickname : "잘못된 접근입니다."}
           </span>
           <span className="font-pretendard font-bold text-lg text-gray-500">
-            test@test.com
+            {userInfo ? userInfo.email : "잘못된 접근입니다."}
           </span>
         </div>
       </div>

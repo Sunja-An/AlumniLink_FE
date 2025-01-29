@@ -6,6 +6,9 @@ import { SignIn } from "@/views/sign/api/sign.action";
 import { isSignInKey } from "@/shared";
 import { useRouter } from "next/navigation";
 
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 export default function LoginView() {
   const router = useRouter();
   const [loginInfo, setLoginInfo] = useState<T_Login>({
@@ -39,9 +42,20 @@ export default function LoginView() {
     }
   };
 
+  useGSAP(() => {
+    const tl = gsap.timeline();
+    tl.from(".login-block", {
+      opacity: 0,
+      y: 200,
+      stagger: 0.2,
+      duration: 1,
+      ease: "power4.inOut",
+    });
+  }, []);
+
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center gap-8">
-      <div className="w-full flex justify-center items-center">
+    <div className="py-40 w-full h-full flex flex-col justify-center items-center gap-8">
+      <div className="login-block w-full flex justify-center items-center">
         <span className="font-pretendard font-black text-4xl text-black uppercase">
           Login
         </span>
@@ -56,7 +70,7 @@ export default function LoginView() {
             placeholder="이메일을 입력해주세요"
             name="email"
             onChange={onChangeText}
-            className="px-4 py-2 w-1/2 h-12 rounded-full font-pretendard text-sm text-black"
+            className="login-block px-4 py-2 w-1/2 h-12 rounded-full font-pretendard text-sm text-black"
             required
           />
           <input
@@ -64,12 +78,12 @@ export default function LoginView() {
             placeholder="비밀번호를 입력해주세요"
             name="password"
             onChange={onChangeText}
-            className="px-4 py-2 w-1/2 h-12 rounded-full font-pretendard text-sm text-black"
+            className="login-block px-4 py-2 w-1/2 h-12 rounded-full font-pretendard text-sm text-black"
             required
           />
           <button
             type="submit"
-            className="px-4 py-2 w-1/2 h-12 rounded-full font-pretendard text-sm text-black bg-slate-100"
+            className="login-block px-4 py-2 w-1/2 h-12 rounded-full font-pretendard text-sm text-black bg-slate-100"
             onClick={submitLogic}
           >
             로그인하기

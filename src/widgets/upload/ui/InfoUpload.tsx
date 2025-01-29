@@ -1,12 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, {
-  useState,
-  type ChangeEvent,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
+import React, { useState, type ChangeEvent } from "react";
 
 import { ICON_IMAGE, ICON_DOCS } from "@/shared/constants";
 import { post_my_info } from "@/widgets/upload/api/upload.action";
@@ -115,104 +110,9 @@ function InfoUpload() {
             </span>
           </div>
         </div>
-        <UploadOptionBar
-          onSubmit={submitLogic}
-          onStateChange={setIsSetup}
-          target={postInfo}
-          onTagChange={setPostInfo}
-        />
       </div>
     </div>
   );
 }
 
 export { InfoUpload };
-
-import {
-  ICON_PROJECT,
-  ICON_RESUME,
-  ICON_INFORMATION,
-} from "@/shared/constants";
-
-type UploadOptionBarType = {
-  onStateChange: Dispatch<SetStateAction<boolean>>;
-  onSubmit: (e: KeyboardEvent) => Promise<void>;
-  target: T_Post;
-  onTagChange: Dispatch<SetStateAction<T_Post>>;
-};
-
-type TAGLIST = {
-  name: TAG;
-  image: string;
-};
-
-function UploadOptionBar({
-  onStateChange,
-  onSubmit,
-  target,
-  onTagChange,
-}: UploadOptionBarType) {
-  const onSubmitPost = (e: KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      onStateChange(true);
-      onSubmit(e);
-    }
-  };
-
-  const onClickTag = (value: TAG) => {
-    onTagChange({
-      ...target,
-      ["tag"]: value,
-    });
-  };
-
-  const tagList: TAGLIST[] = [
-    { name: "TIP", image: ICON_INFORMATION },
-    { name: "PROJECT", image: ICON_PROJECT },
-    { name: "RESUME", image: ICON_RESUME },
-  ];
-
-  return (
-    <div className="py-2 w-full h-fit flex justify-between items-center gap-4">
-      <div className="min-w-60 w-2/3 h-12 flex justify-start items-center gap-8">
-        {tagList.map((item, key) => {
-          return (
-            <div
-              className="px-3 py-1 min-w-24 w-fit min-h-12 h-12 flex justify-center items-center gap-4 cursor-pointer rounded-full hover:border border-black"
-              onClick={() => onClickTag(item.name)}
-              key={key}
-            >
-              <Image
-                src={item.image}
-                alt={`icon-${key}`}
-                width={15}
-                height={15}
-              />
-              <span className="font-pretendard font-semibold text-sm text-black">
-                {item.name}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-      <div className="button-layer w-fit flex justify-center items-center gap-4">
-        <button
-          type="button"
-          onChange={() => onStateChange(false)}
-          className="w-14 h-10 font-pretendard font-light text-sm bg-softwhite text-black border rounded-md"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          onClick={onSubmit}
-          className="w-14 h-10 font-pretendard font-light text-sm bg-softblack text-white rounded-md"
-          onKeyDown={onSubmitPost}
-        >
-          Upload
-        </button>
-      </div>
-    </div>
-  );
-}

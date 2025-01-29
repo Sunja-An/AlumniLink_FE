@@ -24,6 +24,7 @@ export const SignIn = async ({
 
     return true;
   } catch (err) {
+    console.error(err);
     return false;
   }
 };
@@ -37,6 +38,7 @@ export const SignUp = async (request: T_SignUp) => {
     (await cookie_store).set("refresh-token", res.data.refreshToken);
     return true;
   } catch (err) {
+    console.error(err);
     return false;
   }
 };
