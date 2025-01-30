@@ -15,7 +15,7 @@ function CustomLayout({ isHeader, children }: T_CustomLayout) {
         </section>
       )}
       <section
-        className={`py-10 w-full h-full flex justify-start items-start ${
+        className={`w-full min-h-screen flex justify-start items-start ${
           isHeader && "lg:ml-80"
         }`}
       >
