@@ -1,17 +1,19 @@
 "use client";
 
-import { ServerPostPagingObject, T_SinglePost } from "@/entity/info/post";
-import { EditBtn, get_my_info, InfoCard } from "@/shared";
-import { Pagination } from "@/shared/components/pagination/Pagination";
+import React, { useEffect } from "react";
+
+import {
+  type ServerProjectPagingObject,
+  type T_SingleProject,
+} from "@/entity/project/project";
+import { EditBtn, get_my_info, ProjectCard, Pagination } from "@/shared";
 
 import gsap from "gsap";
 
-import React, { useEffect } from "react";
-
-function ClientInfoList({
+function ClientProjectList({
   data,
 }: {
-  data: ServerPostPagingObject | undefined | false;
+  data: ServerProjectPagingObject | undefined | false;
 }) {
   const userData = get_my_info();
   const tl = gsap.timeline();
@@ -74,12 +76,12 @@ function ClientInfoList({
             />
           </div>
         </div>
-        {data.content.map((item: T_SinglePost, key: number) => {
-          return <InfoCard content={item} key={key} className="info-card" />;
+        {data.content.map((item: T_SingleProject, key: number) => {
+          return <ProjectCard content={item} key={key} className="info-card" />;
         })}
       </div>
     );
   }
 }
 
-export { ClientInfoList };
+export default ClientProjectList;

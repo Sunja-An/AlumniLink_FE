@@ -38,7 +38,7 @@ export type ServerPostPagingObject = {
   totalPages: number; // element 와 size 로 인해, 몇 페이지가 총 나오는지 Check
 };
 
-export type ServerSortType = {
+type ServerSortType = {
   empty: boolean;
   sorted: boolean;
   unsorted: boolean;
