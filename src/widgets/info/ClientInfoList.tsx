@@ -11,7 +11,7 @@ import React, { useEffect } from "react";
 function ClientInfoList({
   data,
 }: {
-  data: ServerPostPagingObject | undefined;
+  data: ServerPostPagingObject | undefined | false;
 }) {
   const tl = gsap.timeline();
 
@@ -32,11 +32,11 @@ function ClientInfoList({
     );
   }, [tl]);
 
-  if (data === undefined) {
+  if (data === undefined || data === false) {
     return (
       <div className="w-full flex flex-col justify-start items-center">
         <span className="font-pretendard font-bold text-5xl text-black">
-          SERVER ERROR
+          😭 데이터가 불러와지지 않았습니다.
         </span>
       </div>
     );
@@ -49,7 +49,7 @@ function ClientInfoList({
           </span>
         </div>
         <span className="font-pretendard font-bold text-5xl text-black">
-          데이터가 없어용..
+          데이터가 없습니다.
         </span>
       </div>
     );
