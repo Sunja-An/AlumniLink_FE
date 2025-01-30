@@ -18,6 +18,9 @@ import Instagram from "/public/sns/insta.svg";
 
 import Logo from "/public/logo/logo.png";
 import LogoNoBackground from "/public/logo/LogoNoBg.png";
+import TIP_CARD from "/public/img/LifeHacksImage.jpg";
+import PROJECT_CARD from "/public/img/ProjectImage.jpg";
+import QUESTION_CARD from "/public/img/QuestionImage.jpg";
 
 export const HEADER_CONTENT = [
   {
@@ -46,6 +49,12 @@ export const HEADER_CONTENT = [
   },
 ];
 
+export const PostTypeCardContent = {
+  TIP: "여러분들의 크고 작은 경험들을 나눠주세요!",
+  PROJECT: "프로젝트 같이 할 사람을 찾고 있나요? 공고 모집을 올려보세요!",
+  RESUME: "모르는 것은 죄가 아닙니다! 본인이 모르는 것들을 공유해보세요!",
+};
+
 export const ICON_ALUMNIFLAG = AlumniFlag;
 export const ICON_GRADUATE = Graduate;
 export const ICON_MY = My;
@@ -66,3 +75,6 @@ export const ICON_INSTAGRAM = Instagram;
 
 export const IMG_LOGO = Logo;
 export const IMG_NO_BG_LOGO = LogoNoBackground;
+export const IMG_QUESTION = QUESTION_CARD;
+export const IMG_PROJECT = PROJECT_CARD;
+export const IMG_TIP = TIP_CARD;
