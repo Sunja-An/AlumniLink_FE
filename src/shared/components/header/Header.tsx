@@ -4,16 +4,17 @@ import { useEffect, useState } from "react";
 
 import { get_my_info, UserPayload } from "@/shared/utils/get_info";
 import { HEADER_CONTENT } from "@/shared/constants";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import Cookie from "js-cookie";
 
 function Header() {
   const router = useRouter();
+  const pathName = usePathname();
 
   const [userInfo, setUserInfo] = useState<UserPayload | false>(false);
 
-  const [idx, setIdx] = useState<number>(1);
+  const [idx, setIdx] = useState<number>(0);
 
   const onClickRouting = (url: string) => {
     router.push(`/${url}`);
@@ -38,6 +39,14 @@ function Header() {
     const user = get_my_info();
     if (user) {
       setUserInfo(user);
+      if (pathName === "my") {
+        setIdx(3);
+      }
+    }
+    if (pathName.includes("info")) {
+      setIdx(1);
+    } else if (pathName.includes("project")) {
+      setIdx(2);
     }
   }, []);
 
