@@ -12,7 +12,7 @@ export default async function InfoView({
 }) {
   const InfoDatas = await get_info_list(page, size);
   return (
-    <div className="px-20 py-10 w-full h-full flex flex-col justify-start items-start gap-8">
+    <div className="px-10 py-10 w-full h-full flex flex-col justify-start items-start gap-8">
       <div className="w-full flex justify-start items-center">
         <SearchBar />
       </div>

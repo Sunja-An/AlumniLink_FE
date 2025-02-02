@@ -11,6 +11,8 @@ export * from "@/shared/components/editor/Editor";
 export * from "@/shared/components/searchBar/SearchBar";
 export * from "@/shared/components/card/ProjectCard";
 export * from "@/shared/components/pagination/Pagination";
+export * from "@/shared/components/header/Hamburger";
+export * from "@/shared/components/header/Header";
 
 export * from "@/shared/utils/get_info";
 export * from "@/shared/utils/is_valid_type";
