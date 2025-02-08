@@ -12,6 +12,7 @@ import Resume from "/public/svg/resume.svg";
 import Rocket from "/public/svg/Rocket.svg";
 import TwoUser from "/public/svg/TwoUser.svg";
 import User from "/public/svg/User.svg";
+import Bell from "/public/svg/bell.svg";
 
 import Github from "/public/sns/GithubMark.svg";
 import Instagram from "/public/sns/insta.svg";
@@ -69,6 +70,7 @@ export const ICON_PROJECT = Rocket;
 export const ICON_RESUME = Resume;
 export const ICON_TWO_USER = TwoUser;
 export const ICON_USER = User;
+export const ICON_BELL = Bell;
 
 export const ICON_GITHUB = Github;
 export const ICON_INSTAGRAM = Instagram;
