@@ -1,8 +1,9 @@
 export type T_Project = {
   name: string;
   info: string;
-  gitLink: string;
+  link: string;
   maxCount: number;
+  deadline: string;
 };
 
 export type T_SingleProject = {
@@ -10,6 +11,9 @@ export type T_SingleProject = {
   info: string;
   gitLink: string;
   leaderName: string;
+  maxCount: number;
+  nowCount: number;
+  deadline: string;
 };
 
 export type ServerProjectPagingObject = {
