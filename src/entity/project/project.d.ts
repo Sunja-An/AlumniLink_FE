@@ -7,6 +7,7 @@ export type T_Project = {
 };
 
 export type T_SingleProject = {
+  id: number;
   name: string;
   info: string;
   gitLink: string;
