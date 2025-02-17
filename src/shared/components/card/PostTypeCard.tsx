@@ -39,7 +39,7 @@ function PostTypeCard({ tag, className }: { tag: TAG; className?: string }) {
   };
   return (
     <div
-      className={`relative px-10 py-10 w-60 h-60 rounded-md flex flex-col justify-center items-center gap-4 ${
+      className={`relative px-10 py-10 w-60 h-60 min-w-32 min-h-32 rounded-md flex flex-col justify-center items-center gap-4 ${
         className ?? ""
       } group overflow-hidden`}
     >

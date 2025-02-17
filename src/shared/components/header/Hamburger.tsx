@@ -8,6 +8,10 @@ import { usePathname, useRouter } from "next/navigation";
 
 import Cookie from "js-cookie";
 
+import "@/shared/components/header/Hamburger.css";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 function Hamburger() {
   const router = useRouter();
   const pathName = usePathname();
@@ -50,8 +54,23 @@ function Hamburger() {
     }
   }, []);
 
+  useGSAP(() => {
+    gsap.fromTo(
+      ".hamburger",
+      {
+        x: -400,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: "power4.out",
+      }
+    );
+  });
+
   return (
-    <header className="px-5 py-10 w-full h-full flex flex-col justify-start items-center gap-14 duration-300 bg-secondary rounded-3xl shadow-lg">
+    <header className="hamburger px-5 py-10 w-full h-full flex flex-col justify-start items-center gap-14 bg-secondary rounded-3xl shadow-lg opacity-0">
       <div className="w-full flex flex-col justify-center items-center gap-4">
         <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#ee9ca7] to-[#ffdde1] shadow-md" />
         {userInfo ? (
@@ -89,10 +108,8 @@ function Hamburger() {
               if (userInfo !== false) {
                 return (
                   <li
-                    className={`w-full py-4 text-center font-pretendard font-bold text-sm text-black rounded-2xl duration-300 ${
-                      idx === item.id
-                        ? "bg-[#003366] text-white"
-                        : "hover:bg-gray-50 "
+                    className={`navigation-link block relative w-full py-2 text-center font-pretendard font-bold text-sm text-black rounded-2xl duration-300 cursor-pointer ${
+                      idx === item.id && "scale-100"
                     }`}
                     onClick={() => onClickItem(item.id, item.url)}
                     key={key}
@@ -104,11 +121,7 @@ function Hamburger() {
             } else {
               return (
                 <li
-                  className={`w-full py-4 text-center font-pretendard font-bold text-sm text-black rounded-2xl duration-300 ${
-                    idx === item.id
-                      ? "bg-[#003366] text-white"
-                      : "hover:bg-gray-50 "
-                  }`}
+                  className="navigation-link block relative w-full py-2 text-center font-pretendard font-bold text-sm text-black rounded-2xl duration-300 cursor-pointer"
                   onClick={() => onClickItem(item.id, item.url)}
                   key={key}
                 >
