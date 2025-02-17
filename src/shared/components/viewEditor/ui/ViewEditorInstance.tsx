@@ -3,12 +3,7 @@
 import React, { useEffect } from "react";
 import "@blocknote/core/fonts/inter.css";
 import { useCreateBlockNote } from "@blocknote/react";
-import {
-  BlockNoteView,
-  darkDefaultTheme,
-  lightDefaultTheme,
-  Theme,
-} from "@blocknote/mantine";
+import { BlockNoteView, Theme } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 
 type EditorInstanceType = {
@@ -37,9 +32,6 @@ const darkRedTheme = {
   },
 } satisfies Theme;
 
-// The combined "red theme",
-// we pass this to BlockNoteView and then the editor will automatically
-// switch between lightRedTheme / darkRedTheme based on the system theme
 const alumniLinkTheme = {
   light: lightRedTheme,
   dark: darkRedTheme,

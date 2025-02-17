@@ -1,4 +1,4 @@
-import { ListBtn, RequestBtn, ViewEditor } from "@/shared";
+import { RequestBtn, ViewEditor } from "@/shared";
 import { get_single_project } from "@/views/project/api/project.action";
 
 async function ProjectSingleView({ id }: { id: string }) {

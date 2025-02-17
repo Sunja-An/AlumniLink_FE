@@ -15,7 +15,19 @@ function MyProjectList() {
         console.error(err);
       });
   }, []);
-  return <div className="w-full flex justify-start items-start"></div>;
+  return (
+    <div className="w-full flex justify-start items-start">
+      {data &&
+        data.length > 0 &&
+        data.map((item, key) => {
+          return (
+            <div className="" key={key}>
+              <span>{item.name}</span>
+            </div>
+          );
+        })}
+    </div>
+  );
 }
 
 export { MyProjectList };

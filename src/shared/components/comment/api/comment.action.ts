@@ -13,7 +13,9 @@ export const post_comment = async ({
       body,
     };
     const res = await AlumniLinkAPI.post("/comments", request);
-    return true;
+    if (res.status == 201) {
+      return true;
+    }
   } catch (err) {
     return err;
   }
