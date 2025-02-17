@@ -3,20 +3,27 @@
 import { ServerPostPagingObject, T_SinglePost } from "@/entity/info/post";
 import { EditBtn, get_my_info, InfoCard } from "@/shared";
 import { Pagination } from "@/shared/components/pagination/Pagination";
+import { useGSAP } from "@gsap/react";
 
 import gsap from "gsap";
+import { useRouter } from "next/navigation";
 
-import React, { useEffect } from "react";
+import React from "react";
+
+gsap.registerPlugin(useGSAP);
 
 function ClientInfoList({
   data,
 }: {
   data: ServerPostPagingObject | undefined | false;
 }) {
+  const router = useRouter();
   const userData = get_my_info();
   const tl = gsap.timeline();
 
-  useEffect(() => {
+  const { contextSafe } = useGSAP();
+
+  useGSAP(() => {
     tl.fromTo(
       ".info-card",
       {
@@ -31,7 +38,18 @@ function ClientInfoList({
         stagger: 0.1,
       }
     );
-  }, [tl]);
+  });
+
+  const onClickRouting = contextSafe((id: number) => {
+    tl.to(".info-card", {
+      y: 200,
+      duration: 1,
+      opacity: 0,
+      ease: "power4.Out",
+      stagger: 0.1,
+    });
+    router.push(`info/${id}`);
+  });
 
   if (data === undefined || data === false) {
     return (
@@ -75,7 +93,14 @@ function ClientInfoList({
           </div>
         </div>
         {data.content.map((item: T_SinglePost, key: number) => {
-          return <InfoCard content={item} key={key} className="info-card" />;
+          return (
+            <InfoCard
+              content={item}
+              key={key}
+              className="info-card"
+              onClick={() => onClickRouting(item.id)}
+            />
+          );
         })}
       </div>
     );

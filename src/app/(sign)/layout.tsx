@@ -6,5 +6,9 @@ export default function AlumniLink_Sign_Layout({
 }: {
   children: ReactNode;
 }) {
-  return <CustomLayout isHeader={true}>{children}</CustomLayout>;
+  return (
+    <CustomLayout isHamburger={true} isHeader={true}>
+      {children}
+    </CustomLayout>
+  );
 }

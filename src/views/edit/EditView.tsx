@@ -29,8 +29,9 @@ export default function EditView() {
   const [projectInfo, setProjectInfo] = useState<T_Project>({
     name: "",
     info: "",
-    gitLink: "",
+    link: "",
     maxCount: 4,
+    deadline: "",
   });
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>, tag: TAG) => {
@@ -43,6 +44,7 @@ export default function EditView() {
         });
       }
     } else {
+      console.log(projectInfo);
       if (isProjectKey(name)) {
         setProjectInfo({
           ...projectInfo,
@@ -78,8 +80,9 @@ export default function EditView() {
 
   const onClickProjectUpload = async () => {
     const res = await post_my_project(projectInfo);
+    console.log(res);
     if (res) {
-      router.push("/info?page=0&size=0");
+      router.push("/project?page=0&size=0");
     } else {
       alert("Server error");
     }
@@ -114,11 +117,6 @@ export default function EditView() {
         ease: "power4.inOut",
       });
       tl.to(".tip-card", {
-        scaleX: 1.1,
-        scaleY: 1.1,
-        duration: 2,
-      });
-      tl.to(".tip-card", {
         opacity: 0,
         y: -200,
         duration: 1,
@@ -133,11 +131,6 @@ export default function EditView() {
         ease: "power4.inOut",
       });
       tl.to(".project-card", {
-        scaleX: 1.1,
-        scaleY: 1.1,
-        duration: 2,
-      });
-      tl.to(".project-card", {
         opacity: 0,
         y: -200,
         duration: 1,
@@ -150,11 +143,6 @@ export default function EditView() {
         y: 200,
         duration: 1,
         ease: "power4.inOut",
-      });
-      tl.to(".resume-card", {
-        scaleX: 1.1,
-        scaleY: 1.1,
-        duration: 2,
       });
       tl.to(".resume-card", {
         opacity: 0,
@@ -185,14 +173,14 @@ export default function EditView() {
   });
 
   return (
-    <div className="w-full h-screen flex flex-wrap justify-center items-center">
-      <div className="type-container w-3/4 h-5/6 flex flex-col justify-center items-center gap-12 bg-[#FFFAFA] rounded-lg shadow-2xl">
+    <div className="py-5 w-full min-h-screen flex flex-wrap justify-center items-start">
+      <div className="type-container w-3/4 h-screen flex flex-col justify-center items-center gap-12 bg-[#FFFAFA] rounded-lg shadow-2xl">
         <div className="title w-full flex justify-center items-center">
           <span className="font-pretendard font-bold text-4xl text-black uppercase">
             Post 타입 설정
           </span>
         </div>
-        <div className="w-full flex justify-center items-center gap-8">
+        <div className="w-full flex justify-center items-center gap-8 shrink-1">
           <div
             className="w-fit h-fit cursor-pointer"
             onClick={() => onClickTypeCard("TIP")}
@@ -222,12 +210,12 @@ export default function EditView() {
           </div>
         </div>
       </div>
-      <div className="input-container relative hidden px-14 py-14 w-3/4 h-5/6 flex-col justify-start items-start gap-12 bg-[#FFFAFA] rounded-lg shadow-lg">
+      <div className="input-container relative hidden px-14 py-14 w-3/4 flex-col justify-start items-start gap-12 bg-[#FFFAFA] rounded-lg shadow-lg">
         <div className="absolute top-5 right-5 w-full flex justify-end items-center gap-8">
           <button
             className="w-32 h-12 rounded-full font-pretendard font-light text-sm text-black uppercase bg-slate-400"
             type="button"
-            onClick={() => router.push("/info?page=0&size=0")}
+            onClick={() => router.back()}
           >
             cancel
           </button>
@@ -273,12 +261,14 @@ export default function EditView() {
             htmlFor="description"
             className="font-pretendard font-semibold text-lg text-black"
           >
-            포스팅 문구를 설정해주세요!
+            {sort === "PROJECT"
+              ? "Github 주소를 입력해주세요"
+              : "문구를 입력해주세요"}
           </label>
           <input
             type="text"
             id="description"
-            name={sort === "PROJECT" ? "gitLink" : "description"}
+            name={sort === "PROJECT" ? "link" : "description"}
             placeholder={
               sort === "PROJECT"
                 ? "Github 주소를 입력해주세요"
@@ -288,6 +278,39 @@ export default function EditView() {
             className="px-10 py-2 w-full h-12 rounded-lg font-pretendard font-light text-lg text-black"
           />
         </div>
+        {sort === "PROJECT" && (
+          <div className="w-full flex justify-center items-center gap-2">
+            <div className="w-1/2 flex flex-col justify-start items-start gap-5">
+              <label
+                htmlFor="maxCount"
+                className="font-pretendard font-semibold text-lg text-black"
+              >
+                모집 인구를 정해주세요
+              </label>
+              <input
+                type="number"
+                id="maxCount"
+                name="maxCount"
+                onChange={(e) => onChangeTitle(e, sort)}
+                className="px-10 py-2 w-1/2 min-w-24 h-12 rounded-lg font-pretendard font-light text-lg text-black"
+              />
+            </div>
+            <div className="w-1/2 flex flex-col justify-start items-start gap-5">
+              <label
+                htmlFor="deadline"
+                className="font-pretendard font-semibold text-lg text-black"
+              >
+                모집 종료일을 정해주세요
+              </label>
+              <input
+                type="datetime-local"
+                id="deadline"
+                name="deadline"
+                onChange={(e) => onChangeTitle(e, sort)}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

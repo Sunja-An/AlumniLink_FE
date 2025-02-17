@@ -2,6 +2,7 @@
 
 import { get_my_info } from "@/shared";
 import { MyInfoList } from "@/widgets/my/ui/MyInfoList";
+import { MyProjectList } from "@/widgets/my/ui/MyProjectList";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -15,7 +16,7 @@ export default function MyView() {
   }, []);
 
   return (
-    <div className="py-10 w-full h-full flex justify-center items-center">
+    <div className="py-5 w-full h-full flex justify-center items-center">
       <div className="px-10 py-10 w-3/4 h-full flex flex-col justify-start items-start gap-8 rounded-xl bg-[#FFFAFA] shadow-lg">
         <div className="w-full flex flex-col justify-center items-center gap-8">
           <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#ee9ca7] to-[#ffdde1] shadow-md" />
@@ -41,7 +42,9 @@ export default function MyView() {
           <span className="font-pretendard font-bold text-2xl text-black">
             내가 참여한 프로젝트
           </span>
-          <div className=""></div>
+          <div className="">
+            <MyProjectList />
+          </div>
         </div>
       </div>
     </div>

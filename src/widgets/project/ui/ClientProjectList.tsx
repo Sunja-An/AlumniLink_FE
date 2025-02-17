@@ -15,6 +15,7 @@ function ClientProjectList({
 }: {
   data: ServerProjectPagingObject | undefined | false;
 }) {
+  console.log(data);
   const userData = get_my_info();
   const tl = gsap.timeline();
 
@@ -51,7 +52,7 @@ function ClientProjectList({
             검색결과 - {data.totalElements}건
           </span>
           <div className="w-1/3 min-w-40 min-h-20 flex justify-end items-center">
-            <EditBtn />
+            {userData && <EditBtn />}
           </div>
         </div>
         <span className="font-pretendard font-bold text-5xl text-black">
@@ -84,4 +85,4 @@ function ClientProjectList({
   }
 }
 
-export default ClientProjectList;
+export { ClientProjectList };
