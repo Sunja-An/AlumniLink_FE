@@ -1,25 +1,29 @@
-import { Header } from "@/shared/components/header/Header";
+import { Hamburger, Header } from "@/shared";
 import { type ReactNode } from "react";
 
 type T_CustomLayout = {
   isHeader: boolean;
+  isHamburger: boolean;
   children: ReactNode;
 };
 
-function CustomLayout({ isHeader, children }: T_CustomLayout) {
+function CustomLayout({ isHeader, isHamburger, children }: T_CustomLayout) {
   return (
-    <main className="min-w-screen min-h-screen flex justify-start items-start overflow-hidden bg-[#E2E2E2]">
-      {isHeader && (
-        <section className="fixed ml-10 my-10 top-0 left-0 min-w-80 w-80 h-[90%] lg:block hidden">
-          <Header />
+    <main className="relative min-w-screen min-h-screen flex flex-col justify-start items-start overflow-hidden bg-[#E2E2E2]">
+      <Header />
+      <section className={`relative w-screen h-full ${isHeader && "mt-16"}`}>
+        {isHamburger && (
+          <section className="fixed ml-4 top-20 left-0 min-w-72 w-72 h-[85%] lg:block hidden">
+            <Hamburger />
+          </section>
+        )}
+        <section
+          className={`min-h-screen flex justify-start items-start ${
+            isHamburger && "lg:ml-80"
+          }`}
+        >
+          {children}
         </section>
-      )}
-      <section
-        className={`w-full min-h-screen flex justify-start items-start ${
-          isHeader && "lg:ml-80"
-        }`}
-      >
-        {children}
       </section>
     </main>
   );

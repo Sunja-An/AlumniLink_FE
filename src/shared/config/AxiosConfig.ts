@@ -1,5 +1,6 @@
 import axios, { HeadersDefaults } from "axios";
 import Cookies from "js-cookie";
+import { get_refresh_token } from "@/shared/action/token.action";
 
 const PUBLIC_API = process.env.NEXT_PUBLIC_KEY as string;
 
@@ -20,9 +21,6 @@ AlumniLinkAPI.defaults.headers = {
   Accept: "application/json",
 } as headers & HeadersDefaults;
 
-let refreshFlag = false;
-const failedQueue = [];
-
 AlumniLinkAPI.interceptors.request.use(
   (config) => {
     const token = Cookies.get("access-token") ?? null;
@@ -38,30 +36,45 @@ AlumniLinkAPI.interceptors.request.use(
 );
 
 AlumniLinkAPI.interceptors.response.use(
-  (res) => res,
-  async (err) => {
-    const request = err.config;
-    if (err.response?.status === 401 && !request._retry) {
-      if (refreshFlag) {
-        return new Promise(function (resolve, reject) {
-          failedQueue.push({ resolve, reject });
-        })
-          .then((token) => {
-            request.headers["Authorization"] = `Bearer ${token}`;
-            return AlumniLinkAPI(request);
-          })
-          .catch((err) => {
-            return Promise.reject(err);
-          });
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const refreshToken = Cookies.get("refresh-token") ?? ""; // Retrieve the stored refresh token.
+
+        const response = await get_refresh_token(refreshToken);
+
+        if (!response) {
+          return false;
+        }
+        console.log(response);
+        const { accessToken, newRefreshToken } = response.data;
+
+        Cookies.set("access-token", accessToken);
+        Cookies.set("refresh-token", newRefreshToken);
+
+        AlumniLinkAPI.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
+
+        return AlumniLinkAPI(originalRequest);
+      } catch (refreshError) {
+        console.error("Token refresh failed:", refreshError);
+
+        // Token Clear Up
+        Cookies.remove("access-token");
+        Cookies.remove("refresh-token");
+
+        // have to login
+        window.location.href = "/login";
+        return Promise.reject(refreshError);
       }
     }
-    request._retry = true;
-    refreshFlag = true;
-
-    const refreshToken = Cookies.get("refresh-token") ?? null;
-    if (!refreshToken) {
-      return Promise.reject(err);
-    }
+    return Promise.reject(error);
   }
 );
 

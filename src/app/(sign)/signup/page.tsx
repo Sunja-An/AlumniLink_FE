@@ -1,5 +1,5 @@
 import SignUpView from "@/views/sign/SignUpView";
 
-export default function AlumniLink_SignUp_Page() {
+export default async function AlumniLink_SignUp_Page() {
   return <SignUpView />;
 }

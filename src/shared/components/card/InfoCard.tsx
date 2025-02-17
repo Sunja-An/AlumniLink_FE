@@ -3,28 +3,22 @@
 import React from "react";
 
 import { T_SinglePost } from "@/entity/info/post";
-import { useRouter } from "next/navigation";
 import { ICON_RESUME, ICON_INFORMATION } from "@/shared/constants";
 import Image from "next/image";
 
 type T_InfoCard = {
   content: T_SinglePost;
   className?: string;
+  onClick: () => void;
 };
 
-function InfoCard({ content, className }: T_InfoCard) {
-  const router = useRouter();
-
-  const onClickInfoCard = () => {
-    router.push(`/info/${content.id}`);
-  };
-
+function InfoCard({ content, className, onClick }: T_InfoCard) {
   return (
     <div
       className={`px-20 py-10 w-full min-h-40 flex flex-col justify-start items-start rounded-2xl shadow-md cursor-pointer bg-secondary gap-4 ${
         className ?? ""
       }`}
-      onClick={onClickInfoCard}
+      onClick={onClick}
     >
       <div className="w-full flex justify-start items-center gap-2">
         <Image

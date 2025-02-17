@@ -1,115 +1,76 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-import { get_my_info, UserPayload } from "@/shared/utils/get_info";
-import { HEADER_CONTENT } from "@/shared/constants";
-import { useRouter } from "next/navigation";
-
-import Cookie from "js-cookie";
+import { get_my_project_request } from "@/shared/action/project-request.action";
+import { ICON_BELL, ICON_GITHUB, ICON_INSTAGRAM } from "@/shared/constants";
+import { cn } from "@/shared/utils/clsx";
+import { get_my_info } from "@/shared/utils/get_info";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 
 function Header() {
-  const router = useRouter();
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [projectCount, setProjectCount] = useState<number>(0);
 
-  const [userInfo, setUserInfo] = useState<UserPayload | false>(false);
-
-  const [idx, setIdx] = useState<number>(1);
-
-  const onClickRouting = (url: string) => {
-    router.push(`/${url}`);
-  };
-
-  const onClickItem = (id: number, url: string) => {
-    if (id === 4) {
-      Logout();
-    } else {
-      setIdx(id);
-      router.push(`/${url}`);
-    }
-  };
-
-  const Logout = () => {
-    Cookie.remove("access-token");
-    Cookie.remove("refresh-token");
-    window.location.reload();
-  };
+  const userData = get_my_info();
 
   useEffect(() => {
-    const user = get_my_info();
-    if (user) {
-      setUserInfo(user);
-    }
+    if (typeof window === "undefined") return;
+
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+
+    const getProjectCount = async () => {
+      const data = await get_my_project_request();
+      setProjectCount(data.length ?? 0);
+    };
+
+    getProjectCount();
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
-    <header className="px-6 py-10 w-full h-full flex flex-col justify-start items-center gap-14 duration-300 bg-secondary rounded-3xl shadow-lg">
-      <div className="w-full flex flex-col justify-center items-center gap-4">
-        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#ee9ca7] to-[#ffdde1] shadow-md" />
-        {userInfo ? (
-          <div className="w-full flex flex-col justify-center items-center gap-2">
-            <span className="font-pretendard font-bold text-lg text-black">
-              {userInfo.nickname ?? "Waiting..."}
-            </span>
-            <span className="font-pretendard font-light text-sm text-gray-400">
-              {userInfo.email ?? "..."}
-            </span>
-          </div>
-        ) : (
-          <div className="px-10 w-full flex flex-col justify-center items-center gap-2">
-            <button
-              type="button"
-              onClick={() => onClickRouting("login")}
-              className="w-full h-12 font-pretendard font-semibold text-lg text-black rounded-2xl bg-slate-50 border-2 border-black"
-            >
-              로그인하기
-            </button>
-            <button
-              type="button"
-              onClick={() => onClickRouting("signup")}
-              className="w-full h-12 font-pretendard font-semibold text-lg text-white rounded-2xl bg-softblack"
-            >
-              회원가입하기
-            </button>
+    <header
+      className={cn(
+        "fixed top-0 left-0 px-40 w-full min-h-14 flex justify-between items-center duration-300 z-10",
+        {
+          "bg-secondary h-14 shadow-lg": isScrolled,
+          "bg-transparent h-16": !isScrolled,
+        }
+      )}
+    >
+      <div className="w-2/3 h-full flex justify-center items-center">
+        <div className="px-10 w-3/4 h-3/4">
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="검색어를 입력해주세요."
+            className="px-10 py-4 w-full h-full font-pretendard font-medium text-sm rounded-full focus:outline-none"
+          />
+        </div>
+      </div>
+      <div className="w-1/3 h-full flex justify-end items-center gap-4">
+        {userData && (
+          <div className="relative w-10 h-10 rounded-md flex justify-center items-center cursor-pointer">
+            <Image src={ICON_BELL} alt="alarm" width={28} height={28} />
+            <div className="absolute w-4 h-4 bottom-0 right-0 rounded-full flex justify-center items-center bg-gray-500">
+              <span className="font-pretendard font-light text-xs text-white">
+                {projectCount}
+              </span>
+            </div>
           </div>
         )}
+        <div className="w-10 h-10 rounded-md flex justify-center items-center hover:bg-slate-200 duration-300">
+          <Image src={ICON_GITHUB} alt="github" width={28} height={28} />
+        </div>
+        <div className="w-10 h-10 rounded-md flex justify-center items-center hover:bg-slate-200 duration-300">
+          <Image src={ICON_INSTAGRAM} alt="instagram" width={28} height={28} />
+        </div>
       </div>
-      <nav className="w-full flex flex-col justify-center items-center">
-        <ul className="px-10 w-full flex flex-col justify-start items-center gap-4">
-          {HEADER_CONTENT.map((item, key: number) => {
-            if (item.isLoginNeed === true) {
-              if (userInfo !== false) {
-                return (
-                  <li
-                    className={`w-full py-4 text-center font-pretendard font-bold text-lg text-black rounded-2xl duration-300 ${
-                      idx === item.id
-                        ? "bg-[#003366] text-white"
-                        : "hover:bg-gray-50 "
-                    }`}
-                    onClick={() => onClickItem(item.id, item.url)}
-                    key={key}
-                  >
-                    {item.content}
-                  </li>
-                );
-              }
-            } else {
-              return (
-                <li
-                  className={`w-full py-4 text-center font-pretendard font-bold text-lg text-black rounded-2xl duration-300 ${
-                    idx === item.id
-                      ? "bg-[#003366] text-white"
-                      : "hover:bg-gray-50 "
-                  }`}
-                  onClick={() => onClickItem(item.id, item.url)}
-                  key={key}
-                >
-                  {item.content}
-                </li>
-              );
-            }
-          })}
-        </ul>
-      </nav>
     </header>
   );
 }
