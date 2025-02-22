@@ -1,7 +1,6 @@
 export * from "@/shared/layout/CustomLayout";
 
 export * from "@/shared/components/button/EditBtn";
-export * from "@/shared/components/button/RiveBtn";
 export * from "@/shared/components/card/InfoCard";
 export * from "@/shared/components/card/MyInfoCard";
 export * from "@/shared/components/card/PostTypeCard";
@@ -17,6 +16,7 @@ export * from "@/shared/components/comment/ui/Comment";
 
 export { RequestBtn, ListBtn } from "@/shared/components/button/CustomBtn";
 export { MyProjectCard } from "@/shared/components/card/MyProjectCard";
+export { LogoTypography } from "@/shared/components/animation/LogoTypography/LogoTypography";
 
 export { get_my_info } from "@/shared/utils/get_info";
 export {
