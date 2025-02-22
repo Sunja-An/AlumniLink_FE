@@ -23,7 +23,6 @@
       },
       "devDependencies": {
         "@eslint/eslintrc": "^3",
-        "@rive-app/react-canvas": "^4.17.7",
         "@types/bun": "latest",
         "@types/node": "^20",
         "@types/react": "^19",
@@ -176,10 +175,6 @@
     "@popperjs/core": ["@popperjs/core@2.11.8", "", {}, "sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A=="],
 
     "@remirror/core-constants": ["@remirror/core-constants@3.0.0", "", {}, "sha512-42aWfPrimMfDKDi4YegyS7x+/0tlzaqwPQCULLanv3DMIlu96KTJR0fM5isWX2UViOqlGnX6YFgqWepcX+XMNg=="],
-
-    "@rive-app/canvas": ["@rive-app/canvas@2.25.7", "", {}, "sha512-cxC9MrjaYw6VBtZFyXHvwXukERSsdrQP9/48rQkaBysS3+WQbv5XQRzgxFsaj4sYWUgoZu57vHa27o6ktSrY7g=="],
-
-    "@rive-app/react-canvas": ["@rive-app/react-canvas@4.17.10", "", { "dependencies": { "@rive-app/canvas": "2.25.7" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0" } }, "sha512-fYRG1KSqR8V0lc7quwGWwocrw+1kYinTq88R+SwDJYG3zeT22mJ58kPVAZsm2Gt3JLrJsuSWc5RtOq9fyBnfmw=="],
 
     "@rtsao/scc": ["@rtsao/scc@1.1.0", "", {}, "sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g=="],
 
