@@ -8,6 +8,12 @@ export default {
     "./src/shared/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      xl: { max: "1200px" },
+      lg: { max: "1074px" },
+      md: { max: "768px" },
+      sm: { max: "640px" },
+    },
     extend: {
       fontFamily: {
         studioSans: ["studioSans"],
