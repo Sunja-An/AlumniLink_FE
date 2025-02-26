@@ -2,11 +2,11 @@
 
 import React from "react";
 import { type SingleCommentType } from "../types/comment";
-import { timeChanger } from "@/shared/utils/changeTime";
-import { get_my_info } from "@/shared/utils/get_info";
+import { timeConverter } from "@/shared/utils/format/timeConverter";
+import { getMyInfo } from "@/shared/utils";
 
 function Comment({ id, author, body, createdAt }: SingleCommentType) {
-  const userData = get_my_info();
+  const userData = getMyInfo();
   return (
     <div
       className="relative p-5 w-full flex flex-col justify-start items-start gap-4 rounded-xl bg-white"
@@ -18,7 +18,7 @@ function Comment({ id, author, body, createdAt }: SingleCommentType) {
           {author}
         </span>
         <span className="font-pretendard font-normal text-xs text-gray-300">
-          {timeChanger(createdAt)}
+          {timeConverter(createdAt)}
         </span>
       </div>
       <div className="w-full flex justify-start items-center">

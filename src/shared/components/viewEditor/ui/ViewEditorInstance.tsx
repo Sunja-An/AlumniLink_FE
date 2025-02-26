@@ -49,14 +49,12 @@ export default function ViewEditorInstance({ markdown }: EditorInstanceType) {
   }, [editor]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-start items-center bg-transparent focus:outline-none">
-      <BlockNoteView
-        editor={editor}
-        editable={false}
-        style={{ background: "transparent" }}
-        theme={alumniLinkTheme}
-        className="w-full h-full rounded-lg overflow-y-auto focus:outline-none"
-      />
-    </div>
+    <BlockNoteView
+      editor={editor}
+      editable={false}
+      style={{ background: "transparent" }}
+      theme={alumniLinkTheme}
+      className="w-full h-full rounded-lg overflow-y-auto focus:outline-none"
+    />
   );
 }

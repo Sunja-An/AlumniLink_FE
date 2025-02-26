@@ -9,7 +9,7 @@ export type UserPayload = {
   type: string;
 };
 
-const get_my_info = () => {
+export const getMyInfo = () => {
   const token = Cookies.get("access-token");
 
   // Token 이 유효한 토큰인지 Check
@@ -32,5 +32,3 @@ const get_my_info = () => {
     }
   }
 };
-
-export { get_my_info };

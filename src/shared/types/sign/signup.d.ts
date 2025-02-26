@@ -35,6 +35,8 @@ export type useSignUpFormType = {
     placeholder: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   };
+
+  onSubmitSignUp: (e: MouseEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export type SignUpType = {

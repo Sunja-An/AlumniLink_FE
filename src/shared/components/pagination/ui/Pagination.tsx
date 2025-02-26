@@ -32,15 +32,7 @@ function Pagination({ type, index, totalPages, size }: T_Pagination) {
       >
         {"<"}
       </button>
-      <span className="font-pretendard font-semibold text-sm text-black">
-        {index}
-      </span>
-      <span className="font-pretendard font-semibold text-sm text-black">
-        of
-      </span>
-      <span className="font-pretendard font-semibold text-sm text-black">
-        {totalPages}
-      </span>
+      <span className="font-pretendard font-semibold text-sm text-black"></span>
       <button
         type="button"
         onClick={onClickNext}

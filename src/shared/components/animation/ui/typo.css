@@ -3,7 +3,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: fill 0.5s ease-out forwards 3.25s;
+  animation: fill 0.8s ease forwards 4s;
 }
 
 #logo path:nth-child(1) {

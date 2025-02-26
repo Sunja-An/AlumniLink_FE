@@ -20,7 +20,10 @@ function useLoginForm<K extends keyof useLoginType>(key: K): useLoginType[K] {
         ...loginInfo,
         [name]: value,
       });
+      console.log(loginInfo);
+      console.log(name, value);
     }
+    console.log(loginInfo);
   };
 
   const onSubmitLogin = async (e: MouseEvent<HTMLFormElement>) => {

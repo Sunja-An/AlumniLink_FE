@@ -1,6 +1,6 @@
 import axios, { HeadersDefaults } from "axios";
 import Cookies from "js-cookie";
-import { get_refresh_token } from "@/shared/action/token.action";
+import { get_refresh_token } from "@/shared/action/token/token.action";
 
 const PUBLIC_API = process.env.NEXT_PUBLIC_KEY as string;
 

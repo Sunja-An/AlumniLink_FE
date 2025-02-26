@@ -1,11 +1,15 @@
 "use client";
 
-import { type ChangeEvent, useState } from "react";
+import { type ChangeEvent, MouseEvent, useState } from "react";
 import type { SignUpType, useSignUpFormType } from "../../types/sign/signup";
+import { SignUpAPI } from "@/shared/action";
+import { useRouter } from "next/navigation";
 
 function useSignUpForm<K extends keyof useSignUpFormType>(
   key: K
 ): useSignUpFormType[K] {
+  const router = useRouter();
+
   const [signUpInfo, setSignUpInfo] = useState<SignUpType>({
     email: "",
     password: "",
@@ -29,6 +33,15 @@ function useSignUpForm<K extends keyof useSignUpFormType>(
         ...signUpInfo,
         [name]: value,
       });
+    }
+  };
+
+  const onSubmitSignUp = async (e: MouseEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const res = await SignUpAPI(signUpInfo);
+    if (res) {
+      router.push("/info?page=0&size=10");
+    } else {
     }
   };
 
@@ -67,13 +80,15 @@ function useSignUpForm<K extends keyof useSignUpFormType>(
       placeholder: "이력서 링크를 입력해주세요",
       onChange: onChangeText,
     } as useSignUpFormType[K];
-  } else {
+  } else if (key === "employed") {
     return {
       name: key,
       value: signUpInfo.employed,
       placeholder: "취직을 하셨나요?",
       onChange: onChangeText,
     } as useSignUpFormType[K];
+  } else {
+    return onSubmitSignUp as useSignUpFormType[K];
   }
 }
 
