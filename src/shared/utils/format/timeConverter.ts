@@ -1,4 +1,4 @@
-export function timeChanger(date: string | number | Date): string {
+export function timeConverter(date: string | number | Date): string {
   const now = new Date();
   const past = new Date(date);
 

@@ -3,7 +3,7 @@
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { cookies } from "next/headers";
 
-export const server_get_my_info = async () => {
+export const tokenDecoder = async () => {
   const cookie_store = cookies();
   const token = (await cookie_store).get("access-token");
 
