@@ -23,12 +23,14 @@ function useLoginForm<K extends keyof useLoginType>(key: K): useLoginType[K] {
     return {
       name: key,
       value: loginInfo.email,
+      placeholder: "이메일을 입력해주세요",
       onChange: onChangeText,
     } as useLoginType[K];
   } else {
     return {
       name: key,
       value: loginInfo.password,
+      placeholder: "비밀번호를 입력해주세요",
       onChange: onChangeText,
     } as useLoginType[K];
   }
