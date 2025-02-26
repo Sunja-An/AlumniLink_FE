@@ -11,6 +11,7 @@ export type useLoginType = {
     placeholder: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   };
+  onSubmit: (e: MouseEvent<HTMLInputElement>) => Promise<void>;
 };
 
 export type LoginType = {
