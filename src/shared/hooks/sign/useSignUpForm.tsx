@@ -1,13 +1,12 @@
 "use client";
 
-import { type ChangeEvent, MouseEvent, useState } from "react";
-import type { SignUpType, useSignUpFormType } from "../../types/sign/signup";
-import { SignUpAPI } from "@/shared/action";
+import { type ChangeEvent, type MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-function useSignUpForm<K extends keyof useSignUpFormType>(
-  key: K
-): useSignUpFormType[K] {
+import type { SignUpType } from "@/shared/types/sign/signup";
+import { SignUpAPI } from "@/shared/action";
+
+function useSignUpForm() {
   const router = useRouter();
 
   const [signUpInfo, setSignUpInfo] = useState<SignUpType>({
@@ -18,6 +17,14 @@ function useSignUpForm<K extends keyof useSignUpFormType>(
     resumeLink: "",
     employed: false,
   });
+
+  const placeholderText = {
+    email: "이메일을 입력해주세요",
+    password: "비밀번호를 입력해주세요",
+    nickname: "닉네임을 입력해주세요",
+    gitLink: "깃허브 링크를 입력해주세요",
+    resumeLink: "이력서 링크를 입력해주세요",
+  };
 
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,51 +52,12 @@ function useSignUpForm<K extends keyof useSignUpFormType>(
     }
   };
 
-  if (key === "email") {
-    return {
-      name: key,
-      value: signUpInfo.email,
-      placeholder: "이메일을 입력해주세요",
-      onChange: onChangeText,
-    } as useSignUpFormType[K];
-  } else if (key === "password") {
-    return {
-      name: key,
-      value: signUpInfo.password,
-      placeholder: "비밀번호를 입력해주세요",
-      onChange: onChangeText,
-    } as useSignUpFormType[K];
-  } else if (key === "nickname") {
-    return {
-      name: key,
-      value: signUpInfo.nickname,
-      placeholder: "닉네임을 입력해주세요",
-      onChange: onChangeText,
-    } as useSignUpFormType[K];
-  } else if (key === "gitLink") {
-    return {
-      name: key,
-      value: signUpInfo.gitLink,
-      placeholder: "Github 주소를 입력해주세요",
-      onChange: onChangeText,
-    } as useSignUpFormType[K];
-  } else if (key === "resumeLink") {
-    return {
-      name: key,
-      value: signUpInfo.resumeLink,
-      placeholder: "이력서 링크를 입력해주세요",
-      onChange: onChangeText,
-    } as useSignUpFormType[K];
-  } else if (key === "employed") {
-    return {
-      name: key,
-      value: signUpInfo.employed,
-      placeholder: "취직을 하셨나요?",
-      onChange: onChangeText,
-    } as useSignUpFormType[K];
-  } else {
-    return onSubmitSignUp as useSignUpFormType[K];
-  }
+  return {
+    signUpInfo,
+    placeholderText,
+    onChange: onChangeText,
+    onSubmit: onSubmitSignUp,
+  };
 }
 
 export { useSignUpForm };

@@ -1,17 +1,22 @@
 "use client";
 
 import { type ChangeEvent, type MouseEvent, useState } from "react";
-import type { LoginType, useLoginType } from "@/shared/types/sign/login";
+import type { LoginType } from "@/shared/types/sign/login";
 import { LoginAPI } from "@/shared/action";
 import { useRouter } from "next/navigation";
 
-function useLoginForm<K extends keyof useLoginType>(key: K): useLoginType[K] {
+function useLoginForm() {
   const router = useRouter();
 
   const [loginInfo, setLoginInfo] = useState<LoginType>({
     email: "",
     password: "",
   });
+
+  const placeholderText = {
+    email: "이메일을 입력해주세요",
+    password: "비밀번호를 입력해주세요",
+  };
 
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -20,10 +25,7 @@ function useLoginForm<K extends keyof useLoginType>(key: K): useLoginType[K] {
         ...loginInfo,
         [name]: value,
       });
-      console.log(loginInfo);
-      console.log(name, value);
     }
-    console.log(loginInfo);
   };
 
   const onSubmitLogin = async (e: MouseEvent<HTMLFormElement>) => {
@@ -35,23 +37,12 @@ function useLoginForm<K extends keyof useLoginType>(key: K): useLoginType[K] {
     }
   };
 
-  if (key === "email") {
-    return {
-      name: key,
-      value: loginInfo.email,
-      placeholder: "이메일을 입력해주세요",
-      onChange: onChangeText,
-    } as useLoginType[K];
-  } else if (key === "password") {
-    return {
-      name: key,
-      value: loginInfo.password,
-      placeholder: "비밀번호를 입력해주세요",
-      onChange: onChangeText,
-    } as useLoginType[K];
-  } else {
-    return onSubmitLogin as useLoginType[K];
-  }
+  return {
+    loginInfo,
+    placeholderText,
+    onChange: onChangeText,
+    onSubmit: onSubmitLogin,
+  };
 }
 
 export { useLoginForm };

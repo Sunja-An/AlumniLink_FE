@@ -4,10 +4,7 @@ import { LoginInput, useLoginForm } from "@/shared";
 import React from "react";
 
 function LoginForm() {
-  const email = useLoginForm("email");
-  const password = useLoginForm("password");
-
-  const onSubmit = useLoginForm("onSubmit");
+  const { loginInfo, onChange, onSubmit, placeholderText } = useLoginForm();
 
   return (
     <form
@@ -16,17 +13,17 @@ function LoginForm() {
     >
       <LoginInput
         type="text"
-        name={email.name}
-        value={email.value}
-        onChange={email.onChange}
-        placeholder={email.placeholder}
+        name="email"
+        value={loginInfo["email"]}
+        onChange={onChange}
+        placeholder={placeholderText["email"]}
       />
       <LoginInput
         type="password"
-        name={password.name}
-        value={password.value}
-        onChange={password.onChange}
-        placeholder={password.placeholder}
+        name="password"
+        value={loginInfo["password"]}
+        onChange={onChange}
+        placeholder={placeholderText["password"]}
       />
       <button
         type="submit"
