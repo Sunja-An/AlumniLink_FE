@@ -1,8 +1,12 @@
+"use server";
+
 import axios, { HeadersDefaults } from "axios";
-import Cookies from "js-cookie";
 import { get_refresh_token } from "@/shared/action/token/token.action";
+import { cookies } from "next/headers";
 
 const PUBLIC_API = process.env.NEXT_PUBLIC_KEY as string;
+
+const cookies_store = cookies();
 
 export const AlumniLinkAPI = axios.create({
   baseURL: PUBLIC_API,
@@ -22,8 +26,8 @@ AlumniLinkAPI.defaults.headers = {
 } as headers & HeadersDefaults;
 
 AlumniLinkAPI.interceptors.request.use(
-  (config) => {
-    const token = Cookies.get("access-token") ?? null;
+  async (config) => {
+    const token = (await cookies_store).get("access-token")?.value ?? null;
     const BearerToken = "Bearer " + token;
     if (token && config.headers) {
       config.headers.Authorization = BearerToken;
@@ -44,7 +48,8 @@ AlumniLinkAPI.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = Cookies.get("refresh-token") ?? ""; // Retrieve the stored refresh token.
+        const refreshToken =
+          (await cookies_store).get("refresh-token")?.value ?? ""; // Retrieve the stored refresh token.
 
         const response = await get_refresh_token(refreshToken);
 
@@ -54,8 +59,8 @@ AlumniLinkAPI.interceptors.response.use(
         console.log(response);
         const { accessToken, newRefreshToken } = response.data;
 
-        Cookies.set("access-token", accessToken);
-        Cookies.set("refresh-token", newRefreshToken);
+        (await cookies_store).set("access-token", accessToken);
+        (await cookies_store).set("refresh-token", newRefreshToken);
 
         AlumniLinkAPI.defaults.headers.common[
           "Authorization"
@@ -65,12 +70,9 @@ AlumniLinkAPI.interceptors.response.use(
       } catch (refreshError) {
         console.error("Token refresh failed:", refreshError);
 
-        // Token Clear Up
-        Cookies.remove("access-token");
-        Cookies.remove("refresh-token");
+        (await cookies_store).delete("access-token");
+        (await cookies_store).delete("refresh-token");
 
-        // have to login
-        window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }
