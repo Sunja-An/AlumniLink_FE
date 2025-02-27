@@ -1,1 +1,1 @@
-export type TAG = "TIP" | "PROJECT" | "RESUME";
+export type TAG = "TIP" | "PROJECT" | "QUESTION";
