@@ -3,6 +3,14 @@
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { cookies } from "next/headers";
 
+type DecodedUserType = {
+  email: string;
+  nickname: string;
+  type: "access" | "refresh";
+  iat: number;
+  exp: number;
+};
+
 export const tokenDecoder = async () => {
   const cookie_store = cookies();
   const token = (await cookie_store).get("access-token");
@@ -21,7 +29,10 @@ export const tokenDecoder = async () => {
   else {
     const decodedUser = jwtDecode(token.value);
     if (isValidToken(decodedUser)) {
-      return decodedUser;
+      return {
+        token,
+        userData: decodedUser as DecodedUserType,
+      };
     } else {
       return false;
     }

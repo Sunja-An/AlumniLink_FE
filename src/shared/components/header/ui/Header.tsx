@@ -1,31 +1,85 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
-import { ICON_BELL } from "@/shared/constants";
+// Shared Layer
 import { cn } from "@/shared/utils/stylesheet/clsx";
 import { getMyInfo } from "@/shared/utils/token/getClientUserInfo";
 import { LogoTypography } from "@/shared/components/animation/ui/LogoTypography";
+import { useScrollDetact } from "@/shared/hooks";
+import {
+  eachOpacityAnimation,
+  opacityAnimation,
+} from "@/shared/components/header/constants";
+
+// Another Package
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRouter } from "next/navigation";
+import { LogoutAPI } from "@/shared/action";
 
 function Header() {
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  const [projectCount, setProjectCount] = useState<number>(0);
+  const router = useRouter();
 
+  // Detacting Scroll Action
+  const isScrolled = useScrollDetact();
+
+  // User Login Checked
   const userData = getMyInfo();
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
-    };
+  const [isProfileClicked, setIsProfileClicked] = useState<boolean>(false);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const { contextSafe } = useGSAP();
+
+  const onClickProfile = contextSafe(() => {
+    if (!userData) return;
+    setIsProfileClicked((prev) => !prev);
+    const tl = gsap.timeline();
+
+    if (isProfileClicked) {
+      tl.fromTo(
+        ".list-data",
+        eachOpacityAnimation.start,
+        eachOpacityAnimation.end
+      );
+      tl.to(".list-datas", opacityAnimation.end);
+    } else {
+      tl.to(".list-datas", opacityAnimation.start);
+      tl.fromTo(
+        ".list-data",
+        eachOpacityAnimation.end,
+        eachOpacityAnimation.start
+      );
+    }
+  });
+
+  const onClickMypage = contextSafe(() => {
+    const tl = gsap.timeline();
+    tl.fromTo(
+      ".list-data",
+      eachOpacityAnimation.start,
+      eachOpacityAnimation.end
+    );
+    tl.to(".list-datas", opacityAnimation.end);
+    tl.eventCallback("onComplete", () => {
+      router.push("my");
+    });
+  });
+
+  const onClickLogout = contextSafe(() => {
+    const tl = gsap.timeline();
+    tl.fromTo(
+      ".list-data",
+      eachOpacityAnimation.start,
+      eachOpacityAnimation.end
+    );
+    tl.to(".list-datas", opacityAnimation.end);
+    tl.eventCallback("onComplete", () => {
+      LogoutAPI();
+      router.refresh();
+    });
+  });
 
   return (
     <header
@@ -62,7 +116,30 @@ function Header() {
         </ul>
         <div className="w-1/2 flex justify-center items-center gap-2">
           {userData ? (
-            <div className="w-10 h-10 rounded-full bg-black cursor-pointer" />
+            <div className="relative">
+              <div
+                className="relative w-10 h-10 rounded-full bg-black cursor-pointer"
+                onClick={onClickProfile}
+              />
+              <ul className="list-datas absolute top-full right-1/2 px-4 py-2 min-w-28 w-28 max-w-28 min-h-36 h-36 max-h-36 flex flex-col justify-start items-center translate-x-1/2 gap-2 opacity-0">
+                <li
+                  className="list-data py-4 w-full flex justify-center items-center rounded-md bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer"
+                  onClick={onClickMypage}
+                >
+                  <span className="font-pretendard font-bold text-xs text-black">
+                    My 페이지
+                  </span>
+                </li>
+                <li
+                  className="list-data py-4 w-full flex justify-center items-center rounded-md bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer"
+                  onClick={onClickLogout}
+                >
+                  <span className="font-pretendard font-bold text-xs text-black">
+                    로그아웃
+                  </span>
+                </li>
+              </ul>
+            </div>
           ) : (
             <>
               <Link
@@ -80,16 +157,6 @@ function Header() {
             </>
           )}
         </div>
-        {userData && (
-          <div className="relative w-10 h-10 rounded-md flex justify-center items-center cursor-pointer">
-            <Image src={ICON_BELL} alt="alarm" width={28} height={28} />
-            <div className="absolute w-4 h-4 bottom-0 right-0 rounded-full flex justify-center items-center bg-gray-500">
-              <span className="font-pretendard font-light text-xs text-white">
-                {projectCount}
-              </span>
-            </div>
-          </div>
-        )}
       </nav>
     </header>
   );

@@ -9,3 +9,4 @@ export * from "@/shared/components/pagination";
 export * from "@/shared/components/searchBar";
 export * from "@/shared/components/card";
 export * from "@/shared/components/tag";
+export * from "@/shared/components/profile";

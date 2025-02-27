@@ -26,7 +26,10 @@ export const getMyInfo = () => {
   else {
     const decodedUser = jwtDecode(token);
     if (isValidToken(decodedUser)) {
-      return decodedUser as UserPayload;
+      return {
+        token,
+        userData: decodedUser as UserPayload,
+      };
     } else {
       return false;
     }

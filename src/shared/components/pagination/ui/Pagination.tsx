@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/shared/utils";
 import { useRouter } from "next/navigation";
 
 type T_Pagination = {
@@ -24,7 +25,7 @@ function Pagination({ type, index, totalPages, size }: T_Pagination) {
   };
 
   return (
-    <div className="min-w-40 w-40 min-h-12 h-12 flex justify-center items-center gap-2">
+    <div className="min-w-40 w-40 min-h-12 h-12 flex justify-center items-center gap-6">
       <button
         type="button"
         onClick={onClickPrev}
@@ -32,7 +33,22 @@ function Pagination({ type, index, totalPages, size }: T_Pagination) {
       >
         {"<"}
       </button>
-      <span className="font-pretendard font-semibold text-sm text-black"></span>
+      <div className="w-fit flex justify-center items-center gap-4">
+        {Array.from({ length: totalPages }).map((_, key: number) => {
+          return (
+            <span
+              className={cn(
+                "font-pretendard font-bold text-xs text-gray-300 hover:text-gray-500 duration-300",
+                {
+                  "text-black": index === key + 1,
+                }
+              )}
+            >
+              {key + 1}
+            </span>
+          );
+        })}
+      </div>
       <button
         type="button"
         onClick={onClickNext}

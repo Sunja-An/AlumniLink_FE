@@ -6,8 +6,6 @@ import { cookies } from "next/headers";
 
 const PUBLIC_API = process.env.NEXT_PUBLIC_KEY as string;
 
-const cookies_store = cookies();
-
 export const AlumniLinkAPI = axios.create({
   baseURL: PUBLIC_API,
   withCredentials: true,
@@ -27,6 +25,7 @@ AlumniLinkAPI.defaults.headers = {
 
 AlumniLinkAPI.interceptors.request.use(
   async (config) => {
+    const cookies_store = cookies();
     const token = (await cookies_store).get("access-token")?.value ?? null;
     const BearerToken = "Bearer " + token;
     if (token && config.headers) {
@@ -42,6 +41,7 @@ AlumniLinkAPI.interceptors.request.use(
 AlumniLinkAPI.interceptors.response.use(
   (response) => response,
   async (error) => {
+    const cookies_store = cookies();
     const originalRequest = error.config;
 
     if (error.status === 401 && !originalRequest._retry) {

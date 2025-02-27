@@ -1,6 +1,6 @@
 import AlumniLinkAPI from "@/shared/config/AxiosConfig";
 
-export const post_comment = async ({
+export const postComment = async ({
   postId,
   body,
 }: {

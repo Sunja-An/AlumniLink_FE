@@ -1,4 +1,6 @@
-const makeQueryString = (url: string, page: number, size: number) => {
+type QueryStringUrl = "projects" | "posts";
+
+const makeQueryString = (url: QueryStringUrl, page: number, size: number) => {
   const result = `/${url}?page=${page}&size=${size}`;
   if (page < 0 || size < 0) {
     return false;
@@ -7,7 +9,7 @@ const makeQueryString = (url: string, page: number, size: number) => {
 };
 
 const makeCommentQueryString = (
-  url: string,
+  url: QueryStringUrl,
   postId: string,
   page: number,
   size: number

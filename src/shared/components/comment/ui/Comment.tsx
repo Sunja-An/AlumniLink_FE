@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { type SingleCommentType } from "../types/comment";
 import { timeConverter } from "@/shared/utils/format/timeConverter";
 import { getMyInfo } from "@/shared/utils";
+import { SingleCommentType } from "@/entity";
 
 function Comment({ id, author, body, createdAt }: SingleCommentType) {
   const userData = getMyInfo();

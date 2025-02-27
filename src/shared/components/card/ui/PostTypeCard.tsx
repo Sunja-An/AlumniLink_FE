@@ -1,57 +1,54 @@
 "use client";
 
-import Image from "next/image";
 import React from "react";
-import { type TAG } from "@/entity/info/post";
+import Link from "next/link";
 
-import {
-  IMG_QUESTION,
-  IMG_PROJECT,
-  IMG_TIP,
-  PostTypeCardContent,
-} from "@/shared/constants";
+import { TAG } from "@/entity";
 
-function PostTypeCard({ tag, className }: { tag: TAG; className?: string }) {
-  const imageDesignCode =
-    "absolute w-full h-full object-cover rounded-md group-hover:scale-150 duration-300 ease-out";
-  const ImageSelector = () => {
-    if (tag === "TIP") {
-      return (
-        <Image src={IMG_TIP} alt="question-image" className={imageDesignCode} />
-      );
-    } else if (tag === "PROJECT") {
-      return (
-        <Image
-          src={IMG_PROJECT}
-          alt="question-image"
-          className={imageDesignCode}
-        />
-      );
-    } else if (tag === "RESUME") {
-      return (
-        <Image
-          src={IMG_QUESTION}
-          alt="question-image"
-          className={imageDesignCode}
-        />
-      );
-    }
-  };
-  return (
-    <div
-      className={`relative px-10 py-10 w-60 h-60 min-w-32 min-h-32 rounded-md flex flex-col justify-center items-center gap-4 ${
-        className ?? ""
-      } group overflow-hidden`}
-    >
-      {ImageSelector()}
-      <span className="font-pretendard font-black text-xl text-white z-10">
-        {tag}
-      </span>
-      <span className="font-pretendard font-light text-base text-white z-10">
-        {PostTypeCardContent[tag]}
-      </span>
-    </div>
-  );
+function PostTypeCard({ tag }: { tag: TAG }) {
+  if (tag === "TIP") {
+    return (
+      <Link
+        href={"/edit/tip"}
+        className="px-7 py-5 w-full max-h-32 flex flex-col justify-start items-start gap-4 bg-white"
+      >
+        <div className="w-full flex justify-start items-center">
+          <span className="font-pretendard font-bold text-lg text-black">
+            TIP
+          </span>
+        </div>
+        <div className=""></div>
+      </Link>
+    );
+  } else if (tag === "QUESTION") {
+    return (
+      <Link
+        href={"/edit/question"}
+        className="px-7 py-5 w-full max-h-32 flex flex-col justify-start items-start gap-4 bg-white"
+      >
+        <div className="w-full flex justify-start items-center">
+          <span className="font-pretendard font-bold text-lg text-black">
+            QUESTION
+          </span>
+        </div>
+        <div className=""></div>
+      </Link>
+    );
+  } else {
+    return (
+      <Link
+        href={"/edit/project"}
+        className="px-7 py-5 w-full max-h-32 flex flex-col justify-start items-start gap-4 bg-white"
+      >
+        <div className="w-full flex justify-start items-center">
+          <span className="font-pretendard font-bold text-lg text-black">
+            PROJECT
+          </span>
+        </div>
+        <div className=""></div>
+      </Link>
+    );
+  }
 }
 
 export { PostTypeCard };
