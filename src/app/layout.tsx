@@ -9,6 +9,13 @@ const studioSans = localFont({
   variable: "--font-studioSans",
 });
 
+const pretendard = localFont({
+  src: "./fonts/PretendardVariable.woff2",
+  display: "swap",
+  weight: "45 920",
+  variable: "--font-pretendard",
+});
+
 export const metadata: Metadata = {
   title: "AlumniLink",
   description: "졸업생 커뮤니티",
@@ -21,7 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${studioSans.variable} antialiased`}>{children}</body>
+      <body
+        className={`${studioSans.variable} ${pretendard.variable} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

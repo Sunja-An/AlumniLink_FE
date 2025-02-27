@@ -1,8 +1,9 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
-import { post_comment } from "../api/comment.action";
+import React, { type ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+
+import { postComment } from "@/shared/action/comment/comment.action";
 
 function WriteComment({ postId }: { postId: number }) {
   const router = useRouter();
@@ -11,7 +12,7 @@ function WriteComment({ postId }: { postId: number }) {
   const [err, setErrMsg] = useState<string>("");
 
   const onSubmitComment = async () => {
-    const res = await post_comment({ postId, body });
+    const res = await postComment({ postId, body });
     if (res) {
       router.refresh();
     } else {
@@ -37,7 +38,7 @@ function WriteComment({ postId }: { postId: number }) {
           rows={3}
           placeholder="댓글을 입력해주세요."
           onChange={onChangeTextArea}
-          className="px-6 py-4 w-full rounded-2xl font-pretendard text-sm"
+          className="px-6 py-4 w-full rounded-2xl font-pretendard text-sm border-2 border-black"
         />
       </div>
       <div className="w-full flex justify-end items-center gap-8">
@@ -45,8 +46,14 @@ function WriteComment({ postId }: { postId: number }) {
           {err}
         </span>
         <button
-          type="submit"
+          type="button"
           className="w-24 h-10 rounded-full font-pretendard text-sm font-black bg-slate-50"
+        >
+          cancel
+        </button>
+        <button
+          type="submit"
+          className="w-24 h-10 rounded-full font-pretendard text-sm font-black bg-slate-100 hover:bg-slate-200 duration-300"
         >
           submit
         </button>

@@ -6,9 +6,5 @@ export default function AlumniLink_Content_Layout({
 }: {
   children: ReactNode;
 }) {
-  return (
-    <CustomLayout isHamburger={true} isHeader={true}>
-      {children}
-    </CustomLayout>
-  );
+  return <CustomLayout isHeader={true}>{children}</CustomLayout>;
 }
