@@ -1,9 +1,9 @@
 import { LoginForm } from "@/widgets";
 
-export default async function AlumniLink_Login_Page() {
+export default function AlumniLink_Login_Page() {
   return (
-    <div className="py-40 w-full h-full flex flex-col justify-center items-center gap-8">
-      <div className="login-block w-full flex justify-center items-center">
+    <div className="w-full h-full flex flex-col justify-center items-center gap-8">
+      <div className="w-full flex justify-center items-center">
         <span className="font-pretendard font-black text-4xl text-black uppercase">
           Login
         </span>
