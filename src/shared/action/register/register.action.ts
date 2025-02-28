@@ -1,19 +1,18 @@
-import { PostType, ProjectType } from "@/entity";
+"use server";
+
+import type { PostType, ProjectType } from "@/entity";
 import AlumniLinkAPI from "@/shared/config/AxiosConfig";
 
 type PostProjectType = {
   body: ProjectType;
-  token: string | null;
 };
 
-export const postProject = async ({ body, token }: PostProjectType) => {
+export const postProject = async ({ body }: PostProjectType) => {
   try {
-    const res = await AlumniLinkAPI.post("/projects", body, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return res.data;
+    const res = await AlumniLinkAPI.post("/projects", body);
+    if (res.status === 201) {
+      return true;
+    }
   } catch (err) {
     return err;
   }
@@ -21,17 +20,14 @@ export const postProject = async ({ body, token }: PostProjectType) => {
 
 type PostQuestionType = {
   body: PostType;
-  token: string | null;
 };
 
-export const postQuestion = async ({ body, token }: PostQuestionType) => {
+export const postQuestion = async ({ body }: PostQuestionType) => {
   try {
-    const res = await AlumniLinkAPI.post("/posts", body, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return res.data;
+    const res = await AlumniLinkAPI.post("/posts", body);
+    if (res.status === 201) {
+      return true;
+    }
   } catch (err) {
     return err;
   }
@@ -39,17 +35,14 @@ export const postQuestion = async ({ body, token }: PostQuestionType) => {
 
 type PostTipType = {
   body: PostType;
-  token: string | null;
 };
 
-export const postTip = async ({ body, token }: PostTipType) => {
+export const postTip = async ({ body }: PostTipType) => {
   try {
-    const res = await AlumniLinkAPI.post("/posts", body, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return res.data;
+    const res = await AlumniLinkAPI.post("/posts", body);
+    if (res.status === 201) {
+      return true;
+    }
   } catch (err) {
     return err;
   }
