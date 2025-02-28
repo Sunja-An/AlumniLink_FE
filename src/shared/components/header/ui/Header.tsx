@@ -102,7 +102,7 @@ function Header() {
       <nav className="w-1/2 flex justify-center items-center gap-2">
         <ul className="w-1/2 flex justify-center items-center gap-2">
           <Link
-            href={"/project?page=0&size=20"}
+            href={"/project?page=0&size=10"}
             className="min-w-20 px-2 py-3 font-pretendard font-light text-sm text-black rounded-md hover:bg-slate-100 duration-300 text-center"
           >
             프로젝트 찾기
