@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 // action functions
 import {
   getMyPosts,
@@ -9,7 +11,6 @@ import {
 
 // widget layer
 import { MyPostView, MyProjectView, MyRequestsView } from "@/widgets";
-import Link from "next/link";
 
 export default async function AlumniLink_MyPage() {
   const postInfoData = getMyPosts();
@@ -68,10 +69,15 @@ export default async function AlumniLink_MyPage() {
         </div>
         <div className="w-full h-[2px] rounded-full bg-gray-200" />
         <div className="w-full flex flex-col justify-start items-start gap-8">
-          <span className="font-pretendard font-bold text-lg text-black">
-            프로젝트 참여 현황
-          </span>
-          <MyRequestsView />
+          <div className="w-full flex justify-start items-center gap-2">
+            <span className="font-pretendard font-bold text-lg text-black">
+              프로젝트 요청 현황
+            </span>
+            <span className="font-pretendard font-bold text-lg text-blue-400">
+              {projectRequests.length ?? 0}
+            </span>
+          </div>
+          <MyRequestsView requestInfos={projectRequests} />
         </div>
       </div>
     </div>

@@ -6,9 +6,9 @@ export default async function AlumniLink_Info_ListPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { page, size } = await searchParams;
+  const { page, size, sort } = await searchParams;
 
-  if (Array.isArray(page) || Array.isArray(size)) {
+  if (Array.isArray(page) || Array.isArray(size) || Array.isArray(sort)) {
     return (
       <div className="w-full h-full flex justify-center items-center">
         <span className="font-pretendard font-bold xl:text-5xl lg:text-3xl md:text-xl text-black">
@@ -21,6 +21,7 @@ export default async function AlumniLink_Info_ListPage({
   const InfoDatas = await getInfoList({
     page: parseInt(page ?? "0"),
     size: parseInt(size ?? "0"),
+    sort: sort === "DESC" ? "DESC" : "ASC",
   });
 
   if (InfoDatas === undefined || InfoDatas === false) {
@@ -91,6 +92,7 @@ export default async function AlumniLink_Info_ListPage({
               index={parseInt(page ?? "0") + 1}
               size={InfoDatas.pageable.pageSize}
               type="info"
+              sort={sort === "DESC" ? "DESC" : "ASC"}
             />
           </div>
         </div>

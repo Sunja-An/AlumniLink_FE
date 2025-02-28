@@ -11,14 +11,26 @@ import { CommentArea } from "@/widgets";
 
 export default async function AlumniLink_Info_SinglePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { id } = (await params) ?? {
     id: "0",
   };
-  if (Array.isArray(id) || id === undefined) {
-    console.log(id);
+  const { page, size, sort } = await searchParams;
+
+  if (
+    Array.isArray(id) ||
+    id === undefined ||
+    Array.isArray(page) ||
+    Array.isArray(size) ||
+    page === undefined ||
+    size === undefined ||
+    Array.isArray(sort) ||
+    sort === undefined
+  ) {
     return (
       <div className="py-5 w-full h-full flex justify-center items-center">
         <span className="font-pretendard font-bold xl:text-5xl lg:text-3xl md:text-xl text-black">
@@ -32,8 +44,9 @@ export default async function AlumniLink_Info_SinglePage({
   const singleInfoData = getSingleInfo(id);
   const singleInfoCommentsData = getSingleInfoComments({
     id: id,
-    page: 1,
-    size: 10,
+    page: parseInt(page),
+    size: parseInt(size),
+    sort: sort === "DESC" ? "DESC" : "ASC",
   });
 
   const [user, singleInfo, singleInfoComments] = await Promise.all([
@@ -54,7 +67,14 @@ export default async function AlumniLink_Info_SinglePage({
           <Tag content={singleInfo.tag} />
         </div>
         <div className="w-full flex justify-start items-center">
-          {timeFormatter(singleInfo.startTime)}
+          <div className="px-5 py-2 w-full flex justify-start items-center min-h-10 rounded-md bg-slate-50 border gap-2">
+            <span className="font-pretendard font-semibold text-sm text-black">
+              작성일
+            </span>
+            <span className="font-pretendard font-light text-sm text-black">
+              {timeFormatter(singleInfo.startTime)}
+            </span>
+          </div>
         </div>
         <div className="w-full flex flex-col justify-start items-start">
           <ViewEditor markdown={singleInfo.body} />
@@ -68,7 +88,7 @@ export default async function AlumniLink_Info_SinglePage({
               댓글
             </span>
             <span className="font-pretendard font-semibold text-base text-black">
-              {singleInfoComments.totalElement ?? 0}
+              {singleInfoComments.totalElements ?? 0}
             </span>
           </div>
           <CommentArea
@@ -81,5 +101,3 @@ export default async function AlumniLink_Info_SinglePage({
     </div>
   );
 }
-
-async function AlumniLink_SingleInfo_Comment() {}
