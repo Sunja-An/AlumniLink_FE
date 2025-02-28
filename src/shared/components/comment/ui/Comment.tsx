@@ -2,11 +2,9 @@
 
 import React from "react";
 import { timeConverter } from "@/shared/utils/format/timeConverter";
-import { getMyInfo } from "@/shared/utils";
 import type { SingleCommentType } from "@/entity";
 
 function Comment({ id, author, body, createdAt }: SingleCommentType) {
-  const userData = getMyInfo();
   return (
     <div
       className="relative p-5 w-full flex flex-col justify-start items-start gap-4 rounded-xl"

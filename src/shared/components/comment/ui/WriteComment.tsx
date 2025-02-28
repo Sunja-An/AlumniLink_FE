@@ -15,7 +15,7 @@ function WriteComment({ postId }: { postId: number }) {
     e.preventDefault();
     const res = await postComment({ postId, body });
     if (res) {
-      // router.refresh();
+      router.refresh();
     } else {
       setErrMsg("댓글이 등록되지 않았습니다.");
     }

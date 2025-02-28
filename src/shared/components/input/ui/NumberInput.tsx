@@ -2,7 +2,7 @@
 
 import { ICON_ARROW } from "@/shared/constants";
 import Image from "next/image";
-import React, { ChangeEvent } from "react";
+import React from "react";
 
 type NumberInputType = {
   title: string;

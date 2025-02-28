@@ -37,7 +37,7 @@ export default async function AlumniLink_Project_SinglePage({
     ProjectSingle,
   ]);
 
-  console.log(ProjectSingleData);
+  console.log(user);
 
   if (ProjectSingleData === false || ProjectSingleData === undefined) {
     return (
