@@ -1,16 +1,36 @@
 "use client";
 
-import React from "react";
+import { postProjectRequest } from "@/shared/action";
+import { cn } from "@/shared/utils";
+import React, { MouseEvent } from "react";
 
-function RequestBtn() {
+type RequestBtnType = {
+  id: string;
+  isExpired: boolean;
+};
+
+function RequestBtn({ id, isExpired }: RequestBtnType) {
+  const onClickRequest = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const res = await postProjectRequest(id);
+    if (res) {
+      alert("신청완료되었습니다.");
+    } else {
+    }
+  };
   return (
     <button
       type="button"
-      className="py-4 w-full h-12 rounded-md bg-blue-300 hover:bg-blue-400 duration-300 flex justify-center items-center"
+      className={cn(
+        "py-4 w-full rounded-lg bg-blue-300 duration-300 font-pretendard font-bold text-base text-white",
+        {
+          "cursor-not-allowed": isExpired,
+          "hover:bg-blue-400 ": !isExpired,
+        }
+      )}
+      onClick={onClickRequest}
     >
-      <span className="font-pretendard font-bold text-base text-white">
-        신청하기
-      </span>
+      신청하기
     </button>
   );
 }

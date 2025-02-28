@@ -1,6 +1,6 @@
 "use client";
 
-import React, { type ChangeEvent, useState } from "react";
+import React, { type ChangeEvent, type FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { postComment } from "@/shared/action/comment/comment.action";
@@ -11,10 +11,11 @@ function WriteComment({ postId }: { postId: number }) {
   const [body, setBody] = useState<string>("");
   const [err, setErrMsg] = useState<string>("");
 
-  const onSubmitComment = async () => {
+  const onSubmitComment = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const res = await postComment({ postId, body });
     if (res) {
-      router.refresh();
+      // router.refresh();
     } else {
       setErrMsg("댓글이 등록되지 않았습니다.");
     }

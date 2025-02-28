@@ -33,6 +33,26 @@ function useEditForm() {
 
   const [tagSelector, setTagSelector] = useState<TAG>("TIP");
 
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (tagSelector === "TIP") {
+      setTipInfo({
+        ...tipInfo,
+        [name]: value,
+      });
+    } else if (tagSelector === "QUESTION") {
+      setQuestionInfo({
+        ...questionInfo,
+        [name]: value,
+      });
+    } else {
+      setProjectInfo({
+        ...projectInfo,
+        [name]: value,
+      });
+    }
+  };
+
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     if (tagSelector === "TIP") {
@@ -63,7 +83,6 @@ function useEditForm() {
       }
     } else if (tagSelector === "QUESTION") {
       const res = await postQuestion({ body: questionInfo });
-      console.log(res);
       if (res) {
         router.push("/info?page=0&size=10");
       } else {
@@ -96,6 +115,13 @@ function useEditForm() {
     }
   };
 
+  const onChangeNumber = (value: number) => {
+    setProjectInfo({
+      ...projectInfo,
+      maxCount: value,
+    });
+  };
+
   return {
     projectInfo,
     tipInfo,
@@ -103,7 +129,9 @@ function useEditForm() {
     tag: tagSelector,
     setTag: setTagSelector,
     onChange: onChangeText,
+    onChangeInput,
     onChangeBody,
+    onChangeNumber,
     onSubmit: onSubmitPost,
   };
 }

@@ -6,7 +6,7 @@ function Profile() {
 
 function StaticProfile() {
   return (
-    <div className="min-w-10 w-[10vw] min-h-10 h-[10vw] rounded-full flex bg-slate-300" />
+    <div className="min-w-10 w-[10vw] min-h-10 h-[10vw] rounded-full bg-gradient-to-br from-[#ee9ca7] to-[#ffdde1] shadow-md" />
   );
 }
 

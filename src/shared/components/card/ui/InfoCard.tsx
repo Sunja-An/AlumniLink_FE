@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ICON_RESUME, ICON_INFORMATION } from "@/shared/constants";
 import { SinglePostType } from "@/entity/info/post";
 import { timeConverter } from "@/shared/utils";
-import { ModifyBtn, MyProjectDeleteBtn } from "../../button";
+import { ModifyBtn, MyInfoDeleteBtn } from "@/shared/components/button";
 
 type InfoCardType = {
   content: SinglePostType;
@@ -16,7 +16,7 @@ type InfoCardType = {
 function InfoCard({ content }: InfoCardType) {
   return (
     <Link
-      href={`/info/${content.id}?page=0&size=5`}
+      href={`/info/${content.id}?page=0&size=5&sort=DESC`}
       className="px-12 py-5 w-full min-h-32 max-h-40 flex flex-col justify-start items-start rounded-xl cursor-pointer gap-4 hover:bg-slate-100 duration-300"
     >
       <div className="w-full flex justify-start items-center">
@@ -49,7 +49,7 @@ function InfoCard({ content }: InfoCardType) {
 
 function MyInfoCard({ content }: InfoCardType) {
   return (
-    <div className="px-12 py-5 w-full min-h-32 max-h-40 flex justify-start items-start rounded-xl cursor-pointer gap-4 hover:bg-slate-100 duration-300">
+    <div className="px-12 py-5 w-full min-h-32 max-h-40 flex justify-start items-start rounded-xl gap-4 hover:bg-slate-100 duration-300 cursor-pointer ">
       <div className="w-3/4 flex flex-col justify-start items-start gap-4">
         <div className="w-full flex justify-start items-center">
           <span className="font-pretendard font-bold text-xl text-black">
@@ -77,8 +77,8 @@ function MyInfoCard({ content }: InfoCardType) {
         </div>
       </div>
       <div className="w-1/4 h-full flex flex-col justify-center items-end gap-2">
-        <ModifyBtn url={`/edit/${content.id}`} />
-        <MyProjectDeleteBtn id={content.id} />
+        <ModifyBtn url={`/info/${content.id}?page=0&size=5&sort=DESC`} />
+        <MyInfoDeleteBtn id={content.id} />
       </div>
     </div>
   );

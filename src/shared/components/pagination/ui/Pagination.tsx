@@ -1,5 +1,6 @@
 "use client";
 
+import { QueryStringSortType } from "@/shared/types";
 import { cn } from "@/shared/utils";
 import { useRouter } from "next/navigation";
 
@@ -8,20 +9,25 @@ type T_Pagination = {
   totalPages: number;
   index: number;
   size: number;
+  sort: QueryStringSortType;
 };
 
-function Pagination({ type, index, totalPages, size }: T_Pagination) {
+function Pagination({ type, index, totalPages, size, sort }: T_Pagination) {
   const router = useRouter();
   const onClickPrev = () => {
     if (index - 1 > 0) {
-      router.push(`/${type}?page=${index - 1}&size=${size}`);
+      router.push(`/${type}?page=${index - 1}&size=${size}&sort=${sort}`);
     }
   };
 
   const onClickNext = () => {
     if (index < totalPages) {
-      router.push(`/${type}?page=${index + 1}&size=${size}`);
+      router.push(`/${type}?page=${index + 1}&size=${size}&sort=${sort}`);
     }
+  };
+
+  const onClickPage = (page: number) => {
+    router.push(`/${type}?page=${page}&size=${size}&sort=${sort}`);
   };
 
   return (
@@ -43,6 +49,7 @@ function Pagination({ type, index, totalPages, size }: T_Pagination) {
                   "text-black": index === key + 1,
                 }
               )}
+              onClick={() => onClickPage(key)}
               key={key}
             >
               {key + 1}

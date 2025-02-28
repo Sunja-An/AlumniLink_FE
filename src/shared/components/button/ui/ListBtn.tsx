@@ -14,7 +14,7 @@ function ListBtn({ path }: ListBtnType) {
   const router = useRouter();
 
   const onClickRouting = () => {
-    router.push(`/${path}?page=0&size=10`);
+    router.push(`/${path}?page=0&size=10&sort=DESC`);
   };
 
   return (

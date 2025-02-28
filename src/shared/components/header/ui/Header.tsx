@@ -63,7 +63,7 @@ function Header() {
     );
     tl.to(".list-datas", opacityAnimation.end);
     tl.eventCallback("onComplete", () => {
-      router.push("my");
+      router.push("/my");
     });
   });
 
@@ -77,14 +77,14 @@ function Header() {
     tl.to(".list-datas", opacityAnimation.end);
     tl.eventCallback("onComplete", () => {
       LogoutAPI();
-      router.refresh();
+      router.push("/info?page=0&size=10&sort=DESC");
     });
   });
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 px-40 py-4 w-full min-h-14 flex justify-between items-center duration-300 z-10",
+        "fixed top-0 left-0 px-40 py-4 w-full min-h-14 flex justify-between items-center duration-300 z-50",
         {
           "bg-[#FFFAFA] h-14 shadow-lg": isScrolled,
           "bg-transparent h-16": !isScrolled,
@@ -102,13 +102,13 @@ function Header() {
       <nav className="w-1/2 flex justify-center items-center gap-2">
         <ul className="w-1/2 flex justify-center items-center gap-2">
           <Link
-            href={"/project?page=0&size=10"}
+            href={"/project?page=0&size=10&sort=DESC"}
             className="min-w-20 px-2 py-3 font-pretendard font-light text-sm text-black rounded-md hover:bg-slate-100 duration-300 text-center"
           >
             프로젝트 찾기
           </Link>
           <Link
-            href={"/info?page=0&size=10"}
+            href={"/info?page=0&size=10&sort=DESC"}
             className="min-w-20 px-2 py-3 font-pretendard font-light text-sm text-black rounded-md hover:bg-slate-100 duration-300 text-center"
           >
             정보 둘러보기
@@ -118,7 +118,7 @@ function Header() {
           {userData ? (
             <div className="relative">
               <div
-                className="relative w-10 h-10 rounded-full bg-black cursor-pointer"
+                className="relative w-10 h-10 rounded-full bg-gradient-to-br from-[#ee9ca7] to-[#ffdde1] shadow-md cursor-pointer"
                 onClick={onClickProfile}
               />
               <ul className="list-datas absolute top-full right-1/2 px-4 py-2 min-w-28 w-28 max-w-28 min-h-36 h-36 max-h-36 flex flex-col justify-start items-center translate-x-1/2 gap-2 opacity-0">
