@@ -7,3 +7,4 @@ export type {
 export * from "@/entity/tag/tag.d";
 export * from "@/entity/user/user.d";
 export * from "@/entity/comment/comment.d";
+export * from "@/entity/request/request.d";
