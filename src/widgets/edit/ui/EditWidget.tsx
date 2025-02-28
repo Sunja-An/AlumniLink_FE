@@ -152,7 +152,10 @@ function EditWidget() {
   };
 
   return (
-    <div className="w-full flex flex-col justify-start items-start gap-8">
+    <form
+      className="w-full flex flex-col justify-start items-start gap-8"
+      onSubmit={onSubmit}
+    >
       <div className="w-full flex flex-col justify-start items-start gap-4">
         {TitleEdit()}
         {TextCalculator(tag)}
@@ -231,16 +234,15 @@ function EditWidget() {
           </span>
         </div>
         <button
-          type="button"
+          type="submit"
           className="min-w-28 w-28 min-h-10 h-10 rounded-full flex justify-center items-center bg-[#333333] hover:bg-black duration-300"
-          onClick={onSubmit}
         >
           <span className="font-pretendard font-bold text-xs text-white">
             게시하기
           </span>
         </button>
       </div>
-    </div>
+    </form>
   );
 }
 

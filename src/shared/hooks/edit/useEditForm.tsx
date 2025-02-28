@@ -1,14 +1,13 @@
 "use client";
 
-import { PostType, ProjectType, TAG } from "@/entity";
-import { postProject, postQuestion, postTip } from "@/shared/action";
+import { type ChangeEvent, MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+
+import type { PostType, ProjectType, TAG } from "@/entity";
+import { postProject, postQuestion, postTip } from "@/shared/action";
 
 function useEditForm() {
   const router = useRouter();
-
-  const token = localStorage.getItem("access-token") ?? null;
 
   const [projectInfo, setProjectInfo] = useState<ProjectType>({
     name: "",
@@ -54,23 +53,25 @@ function useEditForm() {
     }
   };
 
-  const onSubmitPost = async () => {
+  const onSubmitPost = async (e: MouseEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (tagSelector === "TIP") {
-      const res = await postTip({ body: tipInfo, token: token });
+      const res = await postTip({ body: tipInfo });
       if (res) {
-        router.push(`/info/${res.id}?page=0&size=5`);
+        router.push("/info?page=0&size=10");
       } else {
       }
     } else if (tagSelector === "QUESTION") {
-      const res = await postQuestion({ body: questionInfo, token: token });
+      const res = await postQuestion({ body: questionInfo });
+      console.log(res);
       if (res) {
-        router.push(`/info/${res.id}?page=0&size=5`);
+        router.push("/info?page=0&size=10");
       } else {
       }
     } else {
-      const res = await postProject({ body: projectInfo, token: token });
+      const res = await postProject({ body: projectInfo });
       if (res) {
-        router.push(`/project/${res.id}`);
+        router.push(`/project?page=0&size=10`);
       } else {
       }
     }
