@@ -1,12 +1,9 @@
 "use client";
 
-import { LoginInput, tokenContext, useLoginForm } from "@/shared";
-import React, { useContext } from "react";
+import { LoginInput, useLoginForm } from "@/shared";
+import React from "react";
 
 function LoginForm() {
-  const { token } = useContext(tokenContext);
-  console.log(token);
-
   const { loginInfo, onChange, onSubmit, placeholderText } = useLoginForm();
 
   return (
