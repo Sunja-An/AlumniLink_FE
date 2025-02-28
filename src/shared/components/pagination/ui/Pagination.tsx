@@ -43,6 +43,7 @@ function Pagination({ type, index, totalPages, size }: T_Pagination) {
                   "text-black": index === key + 1,
                 }
               )}
+              key={key}
             >
               {key + 1}
             </span>

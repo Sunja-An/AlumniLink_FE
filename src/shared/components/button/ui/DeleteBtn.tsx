@@ -4,10 +4,9 @@ import AlumniLinkAPI from "@/shared/config/AxiosConfig";
 import React, { type FormEvent } from "react";
 
 function MyProjectDeleteBtn({ id }: { id: number }) {
-  const token = localStorage.getItem("access-token") ?? null;
   const onClickMyDelete = async (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const res = await deleteMyProject({ id, token });
+    const res = await deleteMyProject({ id });
     if (res) {
     } else {
     }
@@ -25,20 +24,9 @@ function MyProjectDeleteBtn({ id }: { id: number }) {
   );
 }
 
-export const deleteMyProject = async ({
-  id,
-  token,
-}: {
-  id: number;
-  token: string | null;
-}) => {
+export const deleteMyProject = async ({ id }: { id: number }) => {
   try {
-    const res = await AlumniLinkAPI.delete(`/projects/my/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log(res);
+    const res = await AlumniLinkAPI.delete(`/projects/my/${id}`);
     return res.data;
   } catch (err) {
     return err;
