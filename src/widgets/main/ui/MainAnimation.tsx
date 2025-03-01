@@ -34,7 +34,7 @@ function TextAnimation() {
       stagger: 0.4,
     });
     tl.eventCallback("onComplete", () => {
-      router.push("info?page=0&size=10&sort=ASC");
+      router.push("info?page=0&size=10&sort=DESC");
     });
   });
   return (

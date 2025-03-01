@@ -2,6 +2,7 @@ import {
   getSingleInfo,
   getSingleInfoComments,
   ListBtn,
+  Pagination,
   Tag,
   timeFormatter,
   tokenDecoder,
@@ -96,6 +97,16 @@ export default async function AlumniLink_Info_SinglePage({
             postId={parseInt(id)}
             singleInfoComments={singleInfoComments}
           />
+          <div className="w-full flex justify-center items-center">
+            <Pagination
+              totalPages={singleInfoComments.totalPages}
+              id={id}
+              index={parseInt(page ?? "0") + 1}
+              size={singleInfoComments.pageable.pageSize}
+              sort="ASC"
+              type="comment"
+            />
+          </div>
         </div>
       </div>
     </div>

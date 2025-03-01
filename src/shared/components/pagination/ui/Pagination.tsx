@@ -5,29 +5,50 @@ import { cn } from "@/shared/utils";
 import { useRouter } from "next/navigation";
 
 type T_Pagination = {
-  type: "info" | "project";
+  type: "info" | "project" | "comment";
+  id?: string;
   totalPages: number;
   index: number;
   size: number;
   sort: QueryStringSortType;
 };
 
-function Pagination({ type, index, totalPages, size, sort }: T_Pagination) {
+function Pagination({ type, id, index, totalPages, size, sort }: T_Pagination) {
   const router = useRouter();
   const onClickPrev = () => {
     if (index - 1 > 0) {
-      router.push(`/${type}?page=${index - 1}&size=${size}&sort=${sort}`);
+      if (type === "comment") {
+        router.push(
+          `/info/${id}?page=${index - 1}&size=${size}&sort=id&sort=${sort}`
+        );
+      } else {
+        router.push(
+          `/${type}?page=${index - 1}&size=${size}&sort=id&sort=${sort}`
+        );
+      }
     }
   };
 
   const onClickNext = () => {
     if (index < totalPages) {
-      router.push(`/${type}?page=${index + 1}&size=${size}&sort=${sort}`);
+      if (type === "comment") {
+        router.push(
+          `/info/${id}?page=${index + 1}&size=${size}&sort=id&sort=${sort}`
+        );
+      } else {
+        router.push(
+          `/${type}?page=${index + 1}&size=${size}&sort=id&sort=${sort}`
+        );
+      }
     }
   };
 
   const onClickPage = (page: number) => {
-    router.push(`/${type}?page=${page}&size=${size}&sort=${sort}`);
+    if (type === "comment") {
+      router.push(`/info/${id}?page=${page}&size=${size}&sort=id&sort=${sort}`);
+    } else {
+      router.push(`/${type}?page=${page}&size=${size}&sort=id&sort=${sort}`);
+    }
   };
 
   return (
@@ -44,7 +65,7 @@ function Pagination({ type, index, totalPages, size, sort }: T_Pagination) {
           return (
             <span
               className={cn(
-                "font-pretendard font-bold text-xs text-gray-300 hover:text-gray-500 duration-300",
+                "font-pretendard font-bold text-xs text-gray-300 hover:text-gray-500 duration-300 cursor-pointer",
                 {
                   "text-black": index === key + 1,
                 }
