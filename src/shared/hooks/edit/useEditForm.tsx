@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import type { PostType, ProjectType, TAG } from "@/entity";
 import { postProject, postQuestion, postTip } from "@/shared/action";
+import { makeUrlQueryString } from "@/shared/utils/query/makeQueryString";
 
 function useEditForm() {
   const router = useRouter();
@@ -75,22 +76,30 @@ function useEditForm() {
 
   const onSubmitPost = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const infoUrl = makeUrlQueryString("info", 0, 10, "DESC");
+    const projectUrl = makeUrlQueryString("project", 0, 10, "DESC");
     if (tagSelector === "TIP") {
       const res = await postTip({ body: tipInfo });
       if (res) {
-        router.push("/info?page=0&size=10");
+        if (infoUrl) {
+          router.push(infoUrl);
+        }
       } else {
       }
     } else if (tagSelector === "QUESTION") {
       const res = await postQuestion({ body: questionInfo });
       if (res) {
-        router.push("/info?page=0&size=10");
+        if (infoUrl) {
+          router.push(infoUrl);
+        }
       } else {
       }
     } else {
       const res = await postProject({ body: projectInfo });
       if (res) {
-        router.push(`/project?page=0&size=10`);
+        if (projectUrl) {
+          router.push(projectUrl);
+        }
       } else {
       }
     }

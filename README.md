@@ -29,6 +29,14 @@
 
     NEXT.JS - 15.1.3.version
 
+## AlumniLink Repository
+
+[FrontEnd Repository](https://github.com/Sunja-An/AlumniLink_FE)
+
+
+[BackEnd Repository](https://github.com/BaeJunH0/AlumniLink_BE)
+
+
 ## FrontEnd Developer
 
 |                   Sunwoo An                   |
