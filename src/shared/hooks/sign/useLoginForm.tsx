@@ -4,6 +4,7 @@ import { type ChangeEvent, type MouseEvent, useState } from "react";
 import type { LoginType } from "@/shared/types/sign/login";
 import { LoginAPI } from "@/shared/action";
 import { useRouter } from "next/navigation";
+import { makeUrlQueryString } from "@/shared/utils/query/makeQueryString";
 
 function useLoginForm() {
   const router = useRouter();
@@ -32,8 +33,12 @@ function useLoginForm() {
     e.preventDefault();
     const res = await LoginAPI(loginInfo);
     if (res) {
-      router.push("/info?page=0&size=10");
+      const url = makeUrlQueryString("info", 0, 10, "ASC");
+      if (url) {
+        router.push(url);
+      }
     } else {
+      alert("로그인에 실패하였습니다.");
     }
   };
 
