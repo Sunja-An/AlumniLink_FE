@@ -1,24 +1,29 @@
-type QueryStringUrl = "projects" | "posts";
+import type { QueryStringSortType, QueryStringUrl } from "@/shared/types";
 
-const makeQueryString = (url: QueryStringUrl, page: number, size: number) => {
-  const result = `/${url}?page=${page}&size=${size}`;
-  if (page < 0 || size < 0) {
-    return false;
-  }
-  return result;
-};
-
-const makeCommentQueryString = (
+const makeQueryString = (
   url: QueryStringUrl,
-  postId: string,
   page: number,
-  size: number
+  size: number,
+  sort: QueryStringSortType
 ) => {
-  const result = `/${url}?postId=${postId}&page=${page}&size=${size}`;
+  const result = `/${url}?page=${page}&size=${size}&sort=id&sort=${sort}`;
   if (page < 0 || size < 0) {
     return false;
   }
   return result;
 };
 
-export { makeQueryString, makeCommentQueryString };
+const makeQueryStringMypage = (
+  url: QueryStringUrl,
+  page: number,
+  size: number,
+  sort: QueryStringSortType
+) => {
+  const result = `/${url}/my?page=${page}&size=${size}&sort=id&sort=${sort}`;
+  if (page < 0 || size < 0) {
+    return false;
+  }
+  return result;
+};
+
+export { makeQueryString, makeQueryStringMypage };

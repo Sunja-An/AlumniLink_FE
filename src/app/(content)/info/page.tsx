@@ -6,9 +6,14 @@ export default async function AlumniLink_Info_ListPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { page, size } = await searchParams;
+  const { page, size, sort } = await searchParams;
 
-  if (Array.isArray(page) || Array.isArray(size)) {
+  if (
+    Array.isArray(page) ||
+    Array.isArray(size) ||
+    sort === undefined ||
+    sort.length === 1
+  ) {
     return (
       <div className="w-full h-full flex justify-center items-center">
         <span className="font-pretendard font-bold xl:text-5xl lg:text-3xl md:text-xl text-black">
@@ -21,7 +26,31 @@ export default async function AlumniLink_Info_ListPage({
   const InfoDatas = await getInfoList({
     page: parseInt(page ?? "0"),
     size: parseInt(size ?? "0"),
+    sort: sort[1] === "DESC" ? "DESC" : "ASC",
   });
+
+  if (InfoDatas === undefined || InfoDatas === false) {
+    return (
+      <div className="px-20 py-5 w-full h-full flex flex-col justify-start items-start gap-8">
+        <div className="w-full flex flex-col justify-start items-start gap-4">
+          <div className="w-full flex flex-col justify-start items-center">
+            <div className="w-full flex justify-between items-center">
+              <span className="font-pretendard font-bold text-xl text-black">
+                게시물
+              </span>
+              <span className="font-pretendard font-bold text-xl text-blue-500">
+                0건
+              </span>
+            </div>
+            <span className="font-pretendard font-bold text-5xl text-black">
+              데이터가 없습니다.
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (InfoDatas.totalElements === 0) {
     return (
       <div className="px-20 py-5 w-full h-full flex flex-col justify-start items-start gap-8">
@@ -34,9 +63,6 @@ export default async function AlumniLink_Info_ListPage({
               <span className="font-pretendard font-bold text-xl text-blue-500">
                 0건
               </span>
-              <div className="w-1/3 min-w-40 min-h-20 flex justify-end items-center">
-                {/* <EditBtn /> */}
-              </div>
             </div>
             <span className="font-pretendard font-bold text-5xl text-black">
               데이터가 없습니다.
@@ -71,6 +97,7 @@ export default async function AlumniLink_Info_ListPage({
               index={parseInt(page ?? "0") + 1}
               size={InfoDatas.pageable.pageSize}
               type="info"
+              sort={sort === "DESC" ? "DESC" : "ASC"}
             />
           </div>
         </div>

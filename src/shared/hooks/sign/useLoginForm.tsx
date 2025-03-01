@@ -1,14 +1,11 @@
 "use client";
 
-import { type ChangeEvent, type MouseEvent, useContext, useState } from "react";
+import { type ChangeEvent, type MouseEvent, useState } from "react";
 import type { LoginType } from "@/shared/types/sign/login";
 import { LoginAPI } from "@/shared/action";
 import { useRouter } from "next/navigation";
-import { tokenContext } from "@/shared/lib";
 
 function useLoginForm() {
-  const { token, setToken } = useContext(tokenContext);
-
   const router = useRouter();
 
   const [loginInfo, setLoginInfo] = useState<LoginType>({
@@ -35,7 +32,6 @@ function useLoginForm() {
     e.preventDefault();
     const res = await LoginAPI(loginInfo);
     if (res) {
-      setToken(res.accessToken);
       router.push("/info?page=0&size=10");
     } else {
     }

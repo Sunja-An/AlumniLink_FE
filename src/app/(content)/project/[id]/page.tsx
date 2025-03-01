@@ -2,10 +2,11 @@ import {
   dueDayCalculate,
   getSingleProject,
   ListBtn,
+  RequestBtn,
   Tag,
   timeFormatter,
-  tokenDecoder,
   ViewEditor,
+  GithubBookMarkCard,
 } from "@/shared";
 
 export default async function AlumniLink_Project_SinglePage({
@@ -18,7 +19,6 @@ export default async function AlumniLink_Project_SinglePage({
   };
 
   if (Array.isArray(id) || id === undefined) {
-    console.log(id);
     return (
       <div className="py-5 w-full h-full flex justify-center items-center">
         <span className="font-pretendard font-bold xl:text-5xl lg:text-3xl md:text-xl text-black">
@@ -28,15 +28,9 @@ export default async function AlumniLink_Project_SinglePage({
     );
   }
 
-  const userData = tokenDecoder();
   const ProjectSingle = getSingleProject(id);
 
-  const [user, ProjectSingleData] = await Promise.all([
-    userData,
-    ProjectSingle,
-  ]);
-
-  console.log(ProjectSingleData);
+  const [ProjectSingleData] = await Promise.all([ProjectSingle]);
 
   if (ProjectSingleData === false || ProjectSingleData === undefined) {
     return (
@@ -73,7 +67,7 @@ export default async function AlumniLink_Project_SinglePage({
   };
 
   return (
-    <div className="px-32 py-5 w-full flex justify-start items-start">
+    <div className="px-32 py-5 w-full flex justify-start items-start lg:flex-col lg:gap-8">
       <div className="w-full flex flex-col justify-start items-start gap-8">
         <div className="w-full flex justify-start items-center">
           <span className="font-pretendard font-black text-5xl text-black">
@@ -86,7 +80,10 @@ export default async function AlumniLink_Project_SinglePage({
         <div className="w-full flex justify-start items-center">
           {timeFormatter(ProjectSingleData.startTime)}
         </div>
-        <div className="mt-16 w-full flex flex-col justify-start items-start">
+        <div className="w-3/4 flex justify-center items-center">
+          <GithubBookMarkCard githubLink={ProjectSingleData.gitLink} />
+        </div>
+        <div className="mt-8 w-full flex flex-col justify-start items-start">
           <ViewEditor markdown={ProjectSingleData.info} />
         </div>
         <div className="pl-4 w-full flex justify-start items-center">
@@ -98,16 +95,20 @@ export default async function AlumniLink_Project_SinglePage({
           프로젝트 정보
         </span>
         <div className="w-full flex justify-center items-center gap-4">
-          <span className="">{ProjectSingleData.nowCount}</span>
-          <span className="">{ProjectSingleData.maxCount}</span>
+          <span className="font-pretendard font-bold text-sm text-black">
+            {ProjectSingleData.nowCount}
+          </span>
+          <span className="font-pretendard font-bold text-sm text-black">
+            {ProjectSingleData.maxCount}
+          </span>
         </div>
         {DeadlineConverter()}
-        <button
-          type="button"
-          className="py-4 w-full rounded-lg bg-blue-300 hover:bg-blue-400 duration-300 font-pretendard font-bold text-base text-white"
-        >
-          신청하기
-        </button>
+        <RequestBtn
+          id={id}
+          isExpired={
+            dueDayCalculate(ProjectSingleData.deadline) === "만료되었습니다."
+          }
+        />
       </div>
     </div>
   );

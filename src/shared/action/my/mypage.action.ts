@@ -1,16 +1,22 @@
 "use server";
 
 import AlumniLinkAPI from "@/shared/config/AxiosConfig";
-import { makeQueryString } from "@/shared/utils";
+import { makeQueryStringMypage } from "@/shared/utils/query/makeQueryString";
 
 export const getMyProjects = async () => {
   try {
-    const queryString = makeQueryString("projects", 0, 10);
+    const queryString = makeQueryStringMypage("projects", 0, 10, "ASC");
     if (!queryString) {
       return false;
     }
-    const res = await AlumniLinkAPI.get(queryString);
-    return res.data;
+    const res = await AlumniLinkAPI.get(queryString, {
+      timeout: 50000,
+    });
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return false;
+    }
   } catch (err) {
     return err;
   }
@@ -18,12 +24,18 @@ export const getMyProjects = async () => {
 
 export const getMyPosts = async () => {
   try {
-    const queryString = makeQueryString("posts", 0, 10);
+    const queryString = makeQueryStringMypage("posts", 0, 10, "ASC");
     if (!queryString) {
       return false;
     }
-    const res = await AlumniLinkAPI.get(queryString);
-    return res.data;
+    const res = await AlumniLinkAPI.get(queryString, {
+      timeout: 50000,
+    });
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return false;
+    }
   } catch (err) {
     return err;
   }
@@ -31,9 +43,14 @@ export const getMyPosts = async () => {
 
 export const getProjectRequests = async () => {
   try {
-    const res = await AlumniLinkAPI.get("/projects/requests");
-    console.log(res);
-    return res.data;
+    const res = await AlumniLinkAPI.get("/projects/requests", {
+      timeout: 50000,
+    });
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return false;
+    }
   } catch (err) {
     return err;
   }
@@ -54,7 +71,24 @@ export const postProjectResponse = async ({
       `/projects/requests/${projectId}`,
       request
     );
-    return res.data;
+    if (res.status === 201) {
+      return res.data;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    return err;
+  }
+};
+
+export const deleteMyInfo = async (id: number) => {
+  try {
+    const res = await AlumniLinkAPI.delete(`/posts/${id}`);
+    if (res.status === 204) {
+      return true;
+    } else {
+      return false;
+    }
   } catch (err) {
     return err;
   }

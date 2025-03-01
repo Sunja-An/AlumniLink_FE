@@ -1,14 +1,12 @@
 "use client";
 
-import { type ChangeEvent, type MouseEvent, useContext, useState } from "react";
+import { type ChangeEvent, type MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import type { SignUpType } from "@/shared/types/sign/signup";
 import { SignUpAPI } from "@/shared/action";
-import { tokenContext } from "@/shared/lib";
 
 function useSignUpForm() {
-  const { setToken } = useContext(tokenContext);
   const router = useRouter();
 
   const [signUpInfo, setSignUpInfo] = useState<SignUpType>({
@@ -49,7 +47,6 @@ function useSignUpForm() {
     e.preventDefault();
     const res = await SignUpAPI(signUpInfo);
     if (res) {
-      setToken(res.accessToken);
       router.push("/info?page=0&size=10");
     } else {
     }

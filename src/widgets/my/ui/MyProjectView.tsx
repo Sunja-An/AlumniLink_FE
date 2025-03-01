@@ -14,7 +14,7 @@ function MyProjectView({ projectInfos }: MyProjectViewType) {
     return (
       <div className="w-full flex justify-center items-center ">
         <span className="font-pretendard font-bold text-2xl text-black">
-          작성한 글이 없습니다 😭
+          개최한 프로젝트가 없습니다 😭
         </span>
       </div>
     );

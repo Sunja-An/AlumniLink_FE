@@ -56,7 +56,6 @@ AlumniLinkAPI.interceptors.response.use(
         if (!response) {
           return false;
         }
-        console.log(response);
         const { accessToken, newRefreshToken } = response.data;
 
         (await cookies_store).set("access-token", accessToken);

@@ -10,7 +10,7 @@ function TextAnimation() {
   const router = useRouter();
 
   useGSAP(() => {
-    const tl = gsap.timeline({ delay: 4 });
+    const tl = gsap.timeline({ delay: 0 });
     tl.fromTo(
       ".title",
       {
@@ -34,7 +34,7 @@ function TextAnimation() {
       stagger: 0.4,
     });
     tl.eventCallback("onComplete", () => {
-      router.push("info?page=0&size=0");
+      router.push("info?page=0&size=10&sort=ASC");
     });
   });
   return (

@@ -1,18 +1,20 @@
 "use server";
 
 import AlumniLinkAPI from "@/shared/config/AxiosConfig";
+import type { QueryStringSortType } from "@/shared/types";
 import { makeQueryString } from "@/shared/utils";
-import { makeCommentQueryString } from "@/shared/utils/query/makeQueryString";
 
 export const getInfoList = async ({
   page,
   size,
+  sort,
 }: {
   page: number;
   size: number;
+  sort: QueryStringSortType;
 }) => {
   try {
-    const queryString = makeQueryString("posts", page, size);
+    const queryString = makeQueryString("posts", page, size, sort);
     if (!queryString) {
       return false;
     }
@@ -36,17 +38,21 @@ export const getSingleInfoComments = async ({
   id,
   page,
   size,
+  sort,
 }: {
   id: string;
   page: number;
   size: number;
+  sort: QueryStringSortType;
 }) => {
   try {
-    const queryString = makeCommentQueryString("posts", id, page, size);
+    const queryString = makeQueryString("comments", page, size, sort);
     if (!queryString) {
       return false;
     }
-    const res = await AlumniLinkAPI.get(queryString);
+    const res = await AlumniLinkAPI.get(queryString, {
+      data: { postId: id },
+    });
     return res.data;
   } catch (err) {
     return err;
