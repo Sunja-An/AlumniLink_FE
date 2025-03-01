@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import type { SignUpType } from "@/shared/types/sign/signup";
 import { SignUpAPI } from "@/shared/action";
+import { makeUrlQueryString } from "@/shared/utils/query/makeQueryString";
 
 function useSignUpForm() {
   const router = useRouter();
@@ -47,8 +48,12 @@ function useSignUpForm() {
     e.preventDefault();
     const res = await SignUpAPI(signUpInfo);
     if (res) {
-      router.push("/info?page=0&size=10");
+      const url = makeUrlQueryString("info", 0, 10, "DESC");
+      if (url) {
+        router.push(url);
+      }
     } else {
+      alert("회원가입에 실패하였습니다.");
     }
   };
 
