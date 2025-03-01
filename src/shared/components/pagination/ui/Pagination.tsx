@@ -18,9 +18,13 @@ function Pagination({ type, id, index, totalPages, size, sort }: T_Pagination) {
   const onClickPrev = () => {
     if (index - 1 > 0) {
       if (type === "comment") {
-        router.push(`/info/${id}?page=${index - 1}&size=${size}&sort=${sort}`);
+        router.push(
+          `/info/${id}?page=${index - 1}&size=${size}&sort=id&sort=${sort}`
+        );
       } else {
-        router.push(`/${type}?page=${index - 1}&size=${size}&sort=${sort}`);
+        router.push(
+          `/${type}?page=${index - 1}&size=${size}&sort=id&sort=${sort}`
+        );
       }
     }
   };
@@ -28,18 +32,22 @@ function Pagination({ type, id, index, totalPages, size, sort }: T_Pagination) {
   const onClickNext = () => {
     if (index < totalPages) {
       if (type === "comment") {
-        router.push(`/info/${id}?page=${index + 1}&size=${size}&sort=${sort}`);
+        router.push(
+          `/info/${id}?page=${index + 1}&size=${size}&sort=id&sort=${sort}`
+        );
       } else {
-        router.push(`/${type}?page=${index + 1}&size=${size}&sort=${sort}`);
+        router.push(
+          `/${type}?page=${index + 1}&size=${size}&sort=id&sort=${sort}`
+        );
       }
     }
   };
 
   const onClickPage = (page: number) => {
     if (type === "comment") {
-      router.push(`/info/${id}?page=${page}&size=${size}&sort=${sort}`);
+      router.push(`/info/${id}?page=${page}&size=${size}&sort=id&sort=${sort}`);
     } else {
-      router.push(`/${type}?page=${page}&size=${size}&sort=${sort}`);
+      router.push(`/${type}?page=${page}&size=${size}&sort=id&sort=${sort}`);
     }
   };
 
