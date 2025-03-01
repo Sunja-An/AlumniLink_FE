@@ -10,7 +10,7 @@ function TextAnimation() {
   const router = useRouter();
 
   useGSAP(() => {
-    const tl = gsap.timeline({ delay: 4 });
+    const tl = gsap.timeline({ delay: 0 });
     tl.fromTo(
       ".title",
       {

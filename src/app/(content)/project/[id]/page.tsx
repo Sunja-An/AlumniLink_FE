@@ -5,7 +5,6 @@ import {
   RequestBtn,
   Tag,
   timeFormatter,
-  tokenDecoder,
   ViewEditor,
   GithubBookMarkCard,
 } from "@/shared";
@@ -29,15 +28,9 @@ export default async function AlumniLink_Project_SinglePage({
     );
   }
 
-  const userData = tokenDecoder();
   const ProjectSingle = getSingleProject(id);
 
-  const [user, ProjectSingleData] = await Promise.all([
-    userData,
-    ProjectSingle,
-  ]);
-
-  console.log(user);
+  const [ProjectSingleData] = await Promise.all([ProjectSingle]);
 
   if (ProjectSingleData === false || ProjectSingleData === undefined) {
     return (

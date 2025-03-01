@@ -7,7 +7,12 @@ export default async function AlumniLink_Project_ListPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { page, size, sort } = await searchParams;
-  if (Array.isArray(page) || Array.isArray(size) || Array.isArray(sort)) {
+  if (
+    Array.isArray(page) ||
+    Array.isArray(size) ||
+    sort === undefined ||
+    sort.length === 1
+  ) {
     return (
       <div className="w-full h-full flex justify-center items-center">
         <span className="font-pretendard font-bold xl:text-5xl lg:text-3xl md:text-xl text-black">
@@ -16,10 +21,11 @@ export default async function AlumniLink_Project_ListPage({
       </div>
     );
   }
+
   const projectListData = await getProjectList({
     page: parseInt(page ?? "0"),
     size: parseInt(size ?? "0"),
-    sort: sort === "DESC" ? "DESC" : "ASC",
+    sort: sort[1] === "DESC" ? "DESC" : "ASC",
   });
   if (projectListData.totalElements === 0) {
     return (

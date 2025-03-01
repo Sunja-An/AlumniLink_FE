@@ -6,7 +6,7 @@ const makeQueryString = (
   size: number,
   sort: QueryStringSortType
 ) => {
-  const result = `/${url}?page=${page}&size=${size}&sort=${sort}`;
+  const result = `/${url}?page=${page}&size=${size}&sort=id&sort=${sort}`;
   if (page < 0 || size < 0) {
     return false;
   }
@@ -19,7 +19,7 @@ const makeQueryStringMypage = (
   size: number,
   sort: QueryStringSortType
 ) => {
-  const result = `/${url}/my?page=${page}&size=${size}&sort=${sort}`;
+  const result = `/${url}/my?page=${page}&size=${size}&sort=id&sort=${sort}`;
   if (page < 0 || size < 0) {
     return false;
   }

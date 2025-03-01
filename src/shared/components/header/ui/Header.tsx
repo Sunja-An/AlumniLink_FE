@@ -77,7 +77,7 @@ function Header() {
     tl.to(".list-datas", opacityAnimation.end);
     tl.eventCallback("onComplete", () => {
       LogoutAPI();
-      router.push("/info?page=0&size=10&sort=DESC");
+      router.push("/info?page=0&size=10&sort=id&sort=ASC");
     });
   });
 
@@ -102,13 +102,13 @@ function Header() {
       <nav className="w-1/2 flex justify-center items-center gap-2">
         <ul className="w-1/2 flex justify-center items-center gap-2">
           <Link
-            href={"/project?page=0&size=10&sort=DESC"}
+            href={"/project?page=0&size=10&sort=id&sort=DESC"}
             className="min-w-20 px-2 py-3 font-pretendard font-light text-sm text-black rounded-md hover:bg-slate-100 duration-300 text-center"
           >
             프로젝트 찾기
           </Link>
           <Link
-            href={"/info?page=0&size=10&sort=DESC"}
+            href={"/info?page=0&size=10&sort=id&sort=DESC"}
             className="min-w-20 px-2 py-3 font-pretendard font-light text-sm text-black rounded-md hover:bg-slate-100 duration-300 text-center"
           >
             정보 둘러보기
