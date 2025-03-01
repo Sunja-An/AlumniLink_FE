@@ -77,7 +77,7 @@ function Header() {
     tl.to(".list-datas", opacityAnimation.end);
     tl.eventCallback("onComplete", () => {
       LogoutAPI();
-      router.push("/info?page=0&size=10&sort=id&sort=ASC");
+      router.push("/info?page=0&size=10&sort=id&sort=DESC");
     });
   });
 
