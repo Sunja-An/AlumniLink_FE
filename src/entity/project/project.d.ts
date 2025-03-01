@@ -1,4 +1,4 @@
-export type T_Project = {
+export type ProjectType = {
   name: string;
   info: string;
   link: string;
@@ -6,7 +6,7 @@ export type T_Project = {
   deadline: string;
 };
 
-export type T_SingleProject = {
+export type SingleProjectType = {
   id: number;
   name: string;
   info: string;
@@ -18,7 +18,7 @@ export type T_SingleProject = {
 };
 
 export type ServerProjectPagingObject = {
-  content: T_SingleProject[];
+  content: SingleProjectType[];
   empty: boolean;
   first: boolean;
   last: boolean;

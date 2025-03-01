@@ -1,11 +1,11 @@
-export type T_Post = {
+export type PostType = {
   title: string;
   body: string;
   tag: TAG;
   description: string;
 };
 
-export type T_SinglePost = {
+export type SinglePostType = {
   id: number;
   nickname: string;
   title: string;
@@ -16,10 +16,8 @@ export type T_SinglePost = {
   modifiedTime: string;
 };
 
-export type TAG = "TIP" | "PROJECT" | "RESUME";
-
 export type ServerPostPagingObject = {
-  content: T_SinglePost[];
+  content: SinglePostType[];
   empty: boolean;
   first: boolean;
   last: boolean;

@@ -3,17 +3,3 @@ export type T_User = {
   username: string;
   email: string;
 };
-
-export type T_Login = {
-  email: string;
-  password: string;
-};
-
-export type T_SignUp = {
-  email: string;
-  nickname: string;
-  password: string;
-  employed: boolean;
-  gitLink: string;
-  resumeLink: string;
-};

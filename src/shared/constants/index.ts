@@ -3,7 +3,6 @@ import Graduate from "/public/svg/graduate.svg";
 import My from "/public/svg/my.svg";
 import Question from "/public/svg/question.svg";
 import RightArrow from "/public/svg/RightArrow.svg";
-import Search from "/public/svg/SearchIcon.svg";
 import SignOut from "/public/svg/signout.svg";
 import Image from "/public/svg/image.svg";
 import Docs from "/public/svg/docs.svg";
@@ -12,6 +11,7 @@ import Resume from "/public/svg/resume.svg";
 import TwoUser from "/public/svg/TwoUser.svg";
 import User from "/public/svg/User.svg";
 import Bell from "/public/svg/bell.svg";
+import Search from "/public/svg/Search.svg";
 
 import Github from "/public/sns/GithubMark.svg";
 import Instagram from "/public/sns/insta.svg";
