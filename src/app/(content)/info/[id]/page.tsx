@@ -29,8 +29,8 @@ export default async function AlumniLink_Info_SinglePage({
     Array.isArray(size) ||
     page === undefined ||
     size === undefined ||
-    Array.isArray(sort) ||
-    sort === undefined
+    sort === undefined ||
+    sort.length === 1
   ) {
     return (
       <div className="py-5 w-full h-full flex justify-center items-center">
