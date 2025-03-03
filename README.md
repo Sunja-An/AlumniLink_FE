@@ -1,43 +1,81 @@
 # AlumniLink FrontEnd
 
-    ⭐️ AlumniLink Project 의 FrontEnd Page 입니다.
-
-## Front TechStack
-
 <div align="center">
-	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192108891-d86b6220-e232-423a-bf5f-90903e6887c3.png" alt="Visual Studio Code" title="Visual Studio Code"/></code>
-	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/202896760-337261ed-ee92-4979-84c4-d4b829c7355d.png" alt="Tailwind CSS" title="Tailwind CSS"/></code>
-	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" alt="React" title="React"/></code>
-	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" alt="TypeScript" title="TypeScript"/></code>
-	<code><img width="50" src="https://github.com/marwin1991/profile-technology-icons/assets/136815194/5f8c622c-c217-4649-b0a9-7e0ee24bd704" alt="Next.js" title="Next.js"/></code>
-	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/186884152-ae609cca-8cf1-4175-8d60-1ce1fa078ca2.png" alt="macOS" title="macOS"/></code>
+
+![alt text](public/logo/NewLogoDesign.png)
+
+[⭐️ AlumniLink Website!!](alumnilink.vercel.app)
+
 </div>
-
-## Main Funcitons
-
-    🔔 로그인, 회원가입
-
-    🔔 포스팅 ( CRUD )
-
-    🔔 댓글 달기
-
-    🔔 멤버 권한 부여
-
-## Development Environment
-
-    REACT - 19.0.0.version
-
-    NEXT.JS - 15.1.3.version
 
 ## AlumniLink Repository
 
 [FrontEnd Repository](https://github.com/Sunja-An/AlumniLink_FE)
 
-
 [BackEnd Repository](https://github.com/BaeJunH0/AlumniLink_BE)
 
+## Development Environment
 
-## FrontEnd Developer
+### Author Environment
+
+![image](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white) ![image](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
+
+### Working Tools
+
+![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) ![image](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
+
+### Development Environment
+
+    REACT - 19.0.0.version
+
+    NEXT.JS - 15.1.3.version
+
+## Technology Stack
+
+![image](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![image](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![image](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![image](https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white) ![image](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+
+## Main Funcitons
+
+### Auth
+
+🔔 **Sign Up**
+
+🔔 **Login**
+
+### Post
+
+🔔 **Upload Tip/Question Post**
+
+🔔 **Delete Tip/Question Post**
+
+🔔 **Modify Tip/Question Post**
+
+🔔 **Get Tip/Question Post List**
+
+🔔 **Can comment on post**
+
+### Project
+
+🔔 **Create Project Recruitment**
+
+🔔 **Delete Project Recruitment**
+
+🔔 **Modify Project Recruitment**
+
+🔔 **Request to enter the project**
+
+### My
+
+🔔 **Can see my postings**
+
+🔔 **Can see my projects**
+
+🔔 **Approve the user who request to my project**
+
+## FrontEnd Contributor
 
 |                   Sunwoo An                   |
 | :-------------------------------------------: |
